@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>侧边栏</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			height: 2000px;
+		}
+		#side{
+			width: 50px;
+			height: 100px;
+			background-color: maroon;
+			text-align: center;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		#side span{
+			color: #ddd;
+			font-family: '微软雅黑';
+			line-height: 100px;
+		}
+	</style>
+	<script>
+		window.onscroll = window.onresize = window.onload = function(){
+			var oSider = document.getElementById('side'),
+				iSiderH = parseInt(getStyle(oSider, 'height')),
+				iDocH = document.documentElement.clientHeight || document.body.clientHeight,
+				iDocScrollT = document.documentElement.scrollTop || document.body.scrollTop;
+
+			var iTar = parseInt((iDocH - iSiderH)/2) + iDocScrollT;
+			move(oSider, 'top', iTar);
+		};
+
+		//简易运动框架
+		function move(obj, attr, iTarget){
+			clearInterval(obj.iTimer);
+			var iCur, iSpeed;
+			obj.iTimer = setInterval(function(){
+				
+				iCur = parseInt(getStyle(obj, attr));
+				iSpeed = (iTarget - iCur)/8;
+				iSpeed = iSpeed<0 ? Math.floor(iSpeed) : Math.ceil(iSpeed);
+
+				if(Math.abs(iCur -iTarget) <= 1){
+					clearInterval(obj.iTimer);
+				}
+
+				obj.style[attr] = iCur + iSpeed + 'px';
+			}, 30);
+		}
+		//获取计算后的属性
+		function getStyle(obj, attr){
+			if(window.getComputedStyle){
+				return window.getComputedStyle(obj, false)[attr];
+			}else{
+				return obj.currentStyle[attr];
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="side"><span>侧边栏</span></div>
+</body>
+</html>
