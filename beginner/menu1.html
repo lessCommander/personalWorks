@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹性菜单</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			width: 600px;
+			height: 50px;
+			background-color: gold;
+			margin: 100px auto;
+			position: relative;
+		}
+		#menu li{
+			list-style: none;
+			display:inline-block;
+			width: 100px;
+			height: 50px;
+			background-color: #eee;
+			color: #666;
+			text-align: center;
+			line-height: 50px;
+			float: left;
+			position: relative;
+		}
+		#bg{
+			display: inline-block;
+			width: 100px;
+			height: 50px;
+			background-color: #fff;
+			border-top:3px solid blue;
+			border-bottom:3px solid blue;
+			margin-top: -3px;
+			border-radius: 6px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oMenu = document.getElementById('menu'),
+				oBar = document.getElementById('bg');
+
+			oMenu.onmouseover = fnMouseOver;
+
+			function fnMouseOver(ev){
+				var e = ev || window.event;
+				var iTar = e.target ? e.target.offsetLeft : e.srcElement.offsetLeft;
+				fnflex(oBar, 'left', iTar);
+			}
+
+			//弹性框架
+			function fnflex(obj, attr, iTarget){
+				var iSpeed = 0, iCur;
+
+				clearInterval(obj.iTimer);
+
+				obj.iTimer = setInterval(function(){
+
+					iCur = parseInt(getStyle(obj, attr));
+
+					iSpeed += (iTarget - iCur)/8;
+					iSpeed *= 0.7;
+					// iSpeed = iSpeed < 0 ? Math.floor(iSpeed) : Math.ceil(iSpeed);
+
+					if(Math.abs(iCur - iTarget) <= 1 && Math.abs(iSpeed) <= 1){
+						obj.style[attr] = iTarget + 'px';
+						clearTimeout(obj.iTimer);
+					}else{
+						obj.style[attr] = iCur + iSpeed + 'px';
+					}
+				}, 30);
+			}
+			
+			function getStyle(obj, attr){
+				if(window.getComputedStyle){
+					return window.getComputedStyle(obj, false)[attr];
+				}else{
+					return obj.currentStyle[attr];
+				}
+			}
+		};
+
+	</script>
+</head>
+<body>
+	<div class="container">
+		<span id="bg"></span>
+		<ul id="menu">
+			<li>人物动态</li>
+			<li>公司动态</li>
+			<li>网络游戏</li>
+			<li>娱乐版块</li>
+			<li>电子商务</li>
+			<li>联系我们</li>
+		</ul>
+	</div>
+	
+</body>
+</html>
