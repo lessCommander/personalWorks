@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作品目录</title>
+	<style>
+		body, div, ul, li{
+			margin: 0;
+			padding: 0;
+			color: #666;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		.container{
+			width: 300px;
+			margin: 50px auto;
+		}
+		.container .title .list-title{
+			border-bottom: 1px solid #666;
+			background-color: #fff;
+			color: #666;
+		}
+		.container .title .list-title li{
+			display: inline-block;
+			width: 100px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.container .title .list-title .active{
+			background-color: #666;
+			color: #eee;
+		}
+		.container .content{
+			margin-top: 5px;
+		}
+		.container .content ul{
+			display: none;
+		}
+		.container .content .list-active{
+			display: block;
+			padding-left: 10px;
+		}
+		.container .content .list-active li{
+			margin-bottom: 5px;
+		}
+		.container .content .list-active li a{
+			display: block;
+		}
+
+	</style>
+	<script src="jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var aTitle = $('#list-title').find('li'),
+				aList = $('#content').find('ul');
+
+			for (var i=0, len=aTitle.length; i<len; i++){
+				aTitle.eq(i).on('click', titleClick.bind(this, i));
+			}
+			function titleClick(index, e){
+				for (var i=0; i<len; i++){
+					aTitle.eq(i).removeClass('active');
+					aList.eq(i).removeClass('list-active');
+				}
+				aTitle.eq(index).addClass('active');
+				aList.eq(index).addClass('list-active');
+			}
+		});
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="title">
+			<ul id="list-title" class="list-title">
+				<li class="active">初出茅庐</li>
+				<li>初窥门径</li>
+			</ul>
+		</div>
+		<div id="content" class="content">
+			<ul class="list-active">
+				<li><a href="beginner/slide.html">1.幻灯片</a></li>
+				<li><a href="#">2.回放</a></li>
+			</ul>
+			<ul>
+				<li><a href="#">1.幻灯片2</a></li>
+				<li><a href="#">2.回放2</a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
