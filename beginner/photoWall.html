@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>照片墙</title>
+	<style>
+		body, div, ul, li, img{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		.container{
+			width: 900px;
+			height: 400px;
+			background: linear-gradient(to right bottom, #666, #eee);
+			border: 1px solid #000;
+			margin: 50px auto;
+		}
+		.container ul{
+			margin: 80px 36px;
+		}
+		.container ul li{
+			width: 160px;
+			display: inline-block;
+			margin: 0px 15px;
+			position: relative;
+			border-top: 3px solid #fff;
+			border-left: 3px solid #fff;
+			border-right: 3px solid #fff;
+			background-color: #fff;
+			box-shadow: 3px 3px 5px 0px #666;
+			-ms-transition: transform 1s;
+			-moz-transition: transform 1s;
+			-webkit-transition: transform 1s;
+			transition: transform 1s;
+		}
+		.container ul li img{
+			width: 160px;
+			
+		}
+		.container ul li:nth-child(1){
+			-ms-transform: translate(-10px, 10px) rotate(-18deg);
+			-moz-transform: translate(-10px, 10px) rotate(-18deg);
+			-webkit-transform: translate(-10px, 10px) rotate(-18deg);
+			transform: translate(-10px, 10px) rotate(-18deg);
+		}
+		.container ul li:nth-child(2){
+			-ms-transform: translate(0px, -75px) rotate(25deg);
+			-moz-transform: translate(0px, -75px) rotate(25deg);
+			-webkit-transform: translate(0px, -75px) rotate(25deg);
+			transform: translate(0px, -75px) rotate(25deg);
+		}
+		.container ul li:nth-child(3){
+			-ms-transform: translate(-15px, 50px) rotate(-20deg);
+			-moz-transform: translate(-15px, 50px) rotate(-20deg);
+			-webkit-transform: translate(-15px, 50px) rotate(-20deg);
+			transform: translate(-15px, 50px) rotate(-20deg);
+		}
+		.container ul li:nth-child(4){
+			-ms-transform: translate(0px, -10px) rotate(22deg);
+			-moz-transform: translate(0px, -10px) rotate(22deg);
+			-webkit-transform: translate(0px, -10px) rotate(22deg);
+			transform: translate(0px, -10px) rotate(22deg);
+		}
+		.container ul li:hover{
+			-ms-transform: translate(0px, 0px) rotate(0deg) scale(1.5);
+			-moz-transform: translate(0px, 0px) rotate(0deg) scale(1.5);
+			-webkit-transform: translate(0px, 0px) rotate(0deg) scale(1.5);
+			transform: translate(0px, 0px) rotate(0deg) scale(1.5);
+			z-index: 666;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul>
+			<li><img src="img/1.jpg" alt=""></li>
+			<li><img src="img/2.jpg" alt=""></li>
+			<li><img src="img/3.jpg" alt=""></li>
+			<li><img src="img/4.jpg" alt=""></li>
+		</ul>
+	</div>
+</body>
+</html>
