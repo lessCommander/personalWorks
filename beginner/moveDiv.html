@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mouseMoveDiv</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: orange;
+			position:absolute;
+			left: 100px;
+			top: 100px;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var oDiv=document.getElementById('div1');
+			var myLeft,myTop;
+			oDiv.onmousedown=function(ev){
+				var oEvent = ev || window.event;
+				myLeft = oEvent.clientX - oDiv.offsetLeft;
+				myTop = oEvent.clientY - oDiv.offsetTop;
+
+				document.onmousemove=function(ev){
+					var oEvent = ev || window.event;
+					var l = oEvent.clientX - myLeft;
+					var t = oEvent.clientY - myTop;
+					var rightL = document.documentElement.clientWidth || document.body.clientWidth - oDiv.offsetWidth;
+					var bottomT = document.documentElement.clientHeight || document.body.clientHeight - oDiv.offsetHeight;
+					
+					if (l<0){
+						l=0;
+					}else if(l>rightL){
+						l=rightL;
+					}
+					if (t<0){
+						t=0;
+					}else if(t>bottomT){
+						t=bottomT;
+					}
+
+					oDiv.style.left = l + 'px';
+					oDiv.style.top = t + 'px';
+				};
+				document.onmouseup=function(){
+					document.onmousemove = null;
+					document.onmouseup = null;
+				};
+			};
+		};
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>
