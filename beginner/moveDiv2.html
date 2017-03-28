@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘方向键控制Div</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#div1{
+			width: 100px;
+			height: 100px;
+			background-color: olive;
+			color: #eee;
+			position:absolute;
+			left: 200px;
+			top: 100px;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			(function(){
+				var oKey = {
+					obj: null,
+					timer: null,
+					sDir: ''					
+				};
+
+				function fnPlay(){
+					clearInterval(oKey.timer);
+					oKey.timer = setInterval(fnBooster, 30);
+				}
+				fnPlay();
+
+				function fnBooster(){
+					if(oKey.obj && oKey.sDir != ''){
+						switch(oKey.sDir){
+							case 'left':
+								oKey.obj.style.left = oKey.obj.offsetLeft - 10 + 'px';
+								break;
+							case 'top':
+								oKey.obj.style.top = oKey.obj.offsetTop - 10 + 'px';
+								break;
+							case 'right':
+								oKey.obj.style.left = oKey.obj.offsetLeft + 10 + 'px';
+								break;
+							case 'bottom':
+								oKey.obj.style.top = oKey.obj.offsetTop + 10 + 'px';
+								break;
+						}
+					}
+				}
+
+				var oDiv=document.getElementById('div1');
+				oKey.obj = oDiv;
+
+				document.onkeydown = function(ev){
+					var e = ev||window.event;
+
+					//左37上38右39下40，+107，-109
+					var iKey = e.keyCode
+
+					switch(iKey){
+						case 37:
+							oKey.sDir = 'left';
+							break;
+						case 38:
+							oKey.sDir = 'top';
+							break;
+						case 39:
+							oKey.sDir = 'right';
+							break;
+						case 40:
+							oKey.sDir = 'bottom';
+							break;
+						case 107:
+							fnPlay();
+							break;
+						case 109:
+							clearInterval(oKey.timer);
+							break;
+					}
+				};
+
+				document.onkeyup=function(){
+					oKey.sDir = '';
+				};
+			})();
+		};
+	</script>
+</head>
+<body>
+	<div id="div1">用键盘方向键控制方向</div>
+</body>
+</html>
