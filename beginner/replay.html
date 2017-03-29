@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发表评论</title>
+	<style>
+		body, div, ul, li, textarea, button{
+			margin: 0;
+			padding: 0;
+			color: #666;
+			font-size: 14px;
+			font-family: '微软雅黑';
+		}
+		.container{
+			width: 400px;
+			text-align: center;
+			margin: 50px auto;
+		}
+		.container .zone{
+			width: 400px;
+			/*height: 300px;*/
+			border: 1px solid #000;
+			background-color: #eee;
+			position: relative;
+			overflow: hidden;
+		}
+		#list{
+			height: 300px;
+			list-style: none;
+			background-color: #eee;
+			overflow: auto;
+		}
+		#list li{
+			padding: 5px;
+			text-align: left;
+			border-bottom: 1px dashed #666;
+			margin-bottom: 2px;
+			background-color: #ddd;
+		}
+		.container .inp{
+			width: 400px;
+			text-align: center;
+			margin-top: 10px;
+		}
+		#text{
+			width: 400px;
+			display: block;
+			margin-bottom: 10px;
+		}
+		#btn{
+			width: 80px;
+			height: 30px;
+		}
+	</style>
+	<!--<script src="../jquery-1.12.4.js"></script>-->
+	<script>
+		window.onload = function(){
+			var oList = document.getElementById('list'),
+				oTxt = document.getElementById('text'),
+				oBtn = document.getElementById('btn');
+
+			oBtn.onclick = fnReplay;
+			
+			function fnReplay(){
+				var sTxt = myTrim(oTxt.value);
+				if (sTxt){
+					var oLi = document.createElement('li');
+					oLi.innerHTML = sTxt;
+					// oLi.style.display = 'none';
+					if(oList.children.length){
+						oList.insertBefore(oLi, oList.children[0]);
+					}else{
+						oList.appendChild(oLi);
+					}
+					oTxt.value = '';
+
+					/*$(oLi).fadeIn(1000, function(){
+						$(this).css('backgroundColor', 'inherit');
+					});*/
+				}
+			}
+
+			function myTrim(str){
+				return str.replace(/^(\s)+|(\s)+$/g, '');
+			}
+
+			function lg(str){
+				console.log(str);
+			}
+		};
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="zone">
+			<ul id="list"></ul>
+		</div>
+		<div class="inp">
+			<textarea name="" id="text" cols="30" rows="5" placeholder="请在此输入回复内容"></textarea>
+			<button id="btn">回复</button>
+		</div>
+	</div>
+</body>
+</html>
