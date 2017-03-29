@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>消除表情小游戏</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			-moz-user-select: none;
+		}
+		#title{
+			width: 600px;
+			height: 60px;
+			margin: 10px auto;
+			text-align: center;
+		}
+		#title input{
+			width: 120px;
+			height: 26px;
+			margin-top: 8px;
+			font-size: 16px;
+		}
+		#score{
+			width: 100px;
+			height: 60px;
+			background-color: orange;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+		}
+		#score span{
+			display: block;
+			margin-top: 7px;
+		}
+		#content{
+			width: 900px;
+			height: 500px;
+			border: 1px solid #000;
+			margin: 0 auto;
+			position: relative;
+		}
+		#panel{
+			width: 800px;
+			height: 500px;
+			background-color: #eee;
+			border-left: 1px solid #000;
+			position: absolute;
+			left: 99px;
+			top: 0px;
+		}
+		#panel .ico{
+			position: absolute;
+		}
+	</style>
+	<script src="../jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var oBtn = $('#title').find('input').eq(0);
+			var oContent = $('#content');
+			var oPanel = $('#panel');
+			var oSpan1 = $('#score').find('span').eq(0),
+				oSpan2 = $('#score').find('span').eq(1);
+
+			var btnAttr = {
+				'aValue' : ['开始游戏', '正在游戏中…', '游戏结束', '重新开始游戏'],
+			}
+
+			var score = {
+				'sWinStr' : '接到个数：',
+				'sLoseStr' : '丢失个数：',
+				'iWinPoint' : 0,
+				'iLosePoint' : 0,
+				'iOverPoint' : 10 		//失分到达10分结束游戏
+			}
+
+			var face = {
+				'sCryImg' : 'img/qq.png',
+				'arrShake' : getShake(12),			//用作抖动偏移位置的数组
+				'iNum' : -1,						//出现ico的图片名，-1代表无法点击
+				'iAppear' : 500,					//出现频率（毫秒）
+				'iSpeed' : 5000,					//掉落速度（毫秒） -= 掉落速度增加频率 * 接到的个数
+				'iAddX' : 350,						//掉落速度增加频率（毫秒）
+				'iLeftMax' : oPanel.width() - 24,	//24*24的表情出现的位置最大left
+				'iTopMax' : oPanel.height() - 24	//最大top
+			}
+
+			//禁止选中文字
+			$(document).on('selectstart', function(){return false;});
+
+			//按钮添加事件
+			oBtn.on('click', fnBtnClick);
+
+			//按钮点击的函数
+			function fnBtnClick(){
+				$(this).val(btnAttr.aValue[1]);
+				$(this).attr('disabled', 'true');
+				fnInit();
+				play();
+			}
+			//开始掉落
+			function play(){
+				clearTimeout(face.timer);
+				face.timer = setTimeout(fnStart, face.iAppear);
+			}
+
+			//初始化
+			function fnInit(){
+				score.iWinPoint = 0;
+				score.iLosePoint = 0;
+				oSpan1.text(score.sWinStr + 0);
+				oSpan2.text(score.sLoseStr + 0);
+				face.iSpeed = 5000;
+			}
+
+			//主函数
+			function fnStart(){
+				face.iNum = rnd(1,11);
+				var oNewIco = $('<img class="ico" src="img/' + face.iNum + '.png">')
+				var iLeft = rnd(0, face.iLeftMax);
+
+				oNewIco.css('left', iLeft + 'px');
+				oNewIco.css('top', 0 + 'px');
+
+				oNewIco.on('mousedown', fnIcoClick);
+				oNewIco.on('dragstart', function(){return false;});
+
+				oPanel.append(oNewIco);
+
+				oNewIco.animate({'top': face.iTopMax + 'px'}, face.iSpeed, 'linear', function(){
+					fnBadEnd($(this));
+				});
+			}
+
+			//Ico点击的函数
+			function fnIcoClick(){
+				if (face.iNum != -1){
+					face.iNum = -1;				//设置点击无效果
+					$(this).stop(true);			//停止下落
+					fnSetScore(true);			//得分+1
+					setCrySrc($(this));			//设置哭脸
+					for (var i=0; i<face.arrShake.length; i++){
+						$(this).animate({'left': '+=' + face.arrShake[i] + 'px'}, 50, removeIco($(this),i,face.arrShake.length));
+					}
+				}
+			}
+
+			//掉到底
+			function fnBadEnd(oIco){
+				face.iNum = -1;					//设置点击无效果
+				fnSetScore(false);				//失分+1
+				setCrySrc(oIco);				//设置哭脸
+				for (var i=0; i<face.arrShake.length; i++){
+					oContent.animate({'top': '+=' + face.arrShake[i] + 'px'}, 50, removeIco(oIco,i,face.arrShake.length));
+				}
+			}
+			
+			//移除对象
+			function removeIco(obj,ii,len){
+				return function(){
+					if (ii>=len-1){
+						obj.remove();
+						if (score.iLosePoint >= score.iOverPoint){
+							oBtn.val(btnAttr.aValue[2]);
+							alert('丢失过多，游戏结束，请重新开始游戏吧！');
+							oBtn.val(btnAttr.aValue[3]);
+							oBtn.removeAttr('disabled');				//按钮变为可用
+						}else{
+							play();										//继续下一个
+						}
+					}
+				};
+			}
+
+			//设置得分或失分
+			function fnSetScore(bool){
+				if (bool){
+					oSpan1.text(score.sWinStr + ++score.iWinPoint);
+					face.iSpeed -= face.iAddX	//接到的情况，增加速度
+				}else{
+					oSpan2.text(score.sLoseStr + ++score.iLosePoint);
+				}
+			}
+
+			//获得抖动动画的频率数组
+			function getShake(n){
+				var arr1 = [];
+				for (var i=n; i>0; i-=2){
+					arr1.push(i, -i);
+				}
+				arr1.push(0);
+				return arr1;
+			}
+
+			//设置哭脸
+			function setCrySrc(obj){
+				obj.attr('src', face.sCryImg);
+			}
+
+			//生成x-y之间的随机整数
+			function rnd(x, y){
+				return Math.round(Math.random() * (y - x) + x);
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="title">
+		<span>游戏说明：点击“开始游戏”，随机掉下QQ表情，点中表情，别让它掉下去！</span>
+		<input type="button" value="开始游戏">
+	</div>
+	<div id="content">
+		<div id="score">
+			<span>接到个数：0</span>
+			<span>丢失个数：0</span>
+		</div>
+		<div id="panel">
+			
+		</div>
+	</div>
+</body>
+</html>
