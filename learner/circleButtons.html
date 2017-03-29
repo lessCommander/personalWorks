@@ -12,24 +12,29 @@
 			-moz-user-select: none;
 		}
 		#taskbar{
-			width: 700px;
-			height: 600px;
+			width: 600px;
+			height: 300px;
 			border: 1px solid #000;
-			margin: 0 auto;
+			margin: 100px auto;
 			position: relative;
 			background-color: #ccc;
+			text-align: center;
 		}
 		#balls{
-			height: 64px;
-			margin-left: -200px;
+			margin-left: -225px;
 			margin-top: -32px;
 			position: absolute;
 			left: 50%;
 			top: 50%;
+			text-align: center;
 		}
 		#balls li{
+			width: 90px;
+			height: 90px;
+			position: relative;
 			list-style:none;
 			float: left;
+			text-align: center;
 		}
 		#balls li img{
 			width: 64px;
@@ -40,18 +45,35 @@
 	<script>
 		$(function(){
 			var oTask = $('#taskbar'),
-				oBall = $('#balls').find('li');
+				oBall = $('#balls').find('li'),
+				oImg = null,
+				x,y,w,h,
+				aLeft = [],
+				aTop = [];
+
+			//布局转换
+			for(var i = 0, len = oBall.length; i < len; i++){
+				oImg = oBall.eq(i).find('img');
+				aLeft.push(oImg[0].offsetLeft);
+				aTop.push(oImg[0].offsetTop);
+			}
+
+			for(i = 0, len = oBall.length; i < len; i++){
+				oImg = oBall.eq(i).find('img');
+				oImg.css({'left':aLeft[i], 'top':aTop[i], 'position':'absolute'});
+			}
 
 			oTask.mousemove(fnMo);
 
+			//大小变化
 			function fnMo(e){
-				for(var i=0, len = oBall.length; i<len; i++){
-					var oImg = oBall.eq(i).find('img');
-					var x = e.clientX - (oImg.offset().left + oImg.width()/2),
-						y = e.clientY - (oImg.offset().top + oImg.height()/2);
-					var dis = Math.sqrt(x*x + y*y);
+				for(i = 0, len = oBall.length; i<len; i++){
+					oImg = oBall.eq(i).find('img');
+					x = e.clientX - (oImg.offset().left + oImg.width()/2),
+					y = e.clientY - (oImg.offset().top + oImg.height()/2);
+					dis = Math.sqrt(x*x + y*y);
 
-					var w = h = Math.abs(1 - dis/258) * 128;
+					w = h = Math.abs(1 - dis/258) * 128;
 
 					if(w < 64 || dis > 258){
 						w = 64;
@@ -62,9 +84,11 @@
 
 					oImg.width(w);
 					oImg.height(h);
+					oImg.css({'left':aLeft[i]-(w-64)/2, 'top':aTop[i]-(h-64)/2});
 				}
 			}
 
+			//阻止默认
 			oTask.on('selectstart dragstart', function(){return false;});
 		});
 	</script>
