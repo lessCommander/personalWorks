@@ -8,16 +8,18 @@
 			margin: 0;
 			padding: 0;
 		}
+		body{
+			-moz-user-select: none;
+		}
 		#taskbar{
 			width: 700px;
 			height: 600px;
 			border: 1px solid #000;
-			margin: 100px auto;
+			margin: 0 auto;
 			position: relative;
 			background-color: #ccc;
 		}
 		#balls{
-			width: 700px;
 			height: 64px;
 			margin-left: -200px;
 			margin-top: -32px;
@@ -45,15 +47,16 @@
 			function fnMo(e){
 				for(var i=0, len = oBall.length; i<len; i++){
 					var oImg = oBall.eq(i).find('img');
-					var x = e.clientX - oImg.offset().left,
-						y = e.clientY - oImg.offset().top;
+					var x = e.clientX - (oImg.offset().left + oImg.width()/2),
+						y = e.clientY - (oImg.offset().top + oImg.height()/2);
 					var dis = Math.sqrt(x*x + y*y);
-					var w = h = Math.abs(1 - dis/300) * 128;
 
-					if(w < 64 || dis > 300){
+					var w = h = Math.abs(1 - dis/258) * 128;
+
+					if(w < 64 || dis > 258){
 						w = 64;
 					}
-					if(h < 64  || dis > 300){
+					if(h < 64  || dis > 258){
 						h = 64;
 					}
 
@@ -61,6 +64,8 @@
 					oImg.height(h);
 				}
 			}
+
+			oTask.on('selectstart dragstart', function(){return false;});
 		});
 	</script>
 </head>
