@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>苹果系统任务栏按钮</title>
+	<style type="text/css">
+		body,div,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		#taskbar{
+			width: 700px;
+			height: 600px;
+			border: 1px solid #000;
+			margin: 100px auto;
+			position: relative;
+			background-color: #ccc;
+		}
+		#balls{
+			width: 700px;
+			height: 64px;
+			margin-left: -200px;
+			margin-top: -32px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+		}
+		#balls li{
+			list-style:none;
+			float: left;
+		}
+		#balls li img{
+			width: 64px;
+			height: 64px;
+		}
+	</style>
+	<script type="text/javascript" src="../jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var oTask = $('#taskbar'),
+				oBall = $('#balls').find('li');
+
+			oTask.mousemove(fnMo);
+
+			function fnMo(e){
+				for(var i=0, len = oBall.length; i<len; i++){
+					var oImg = oBall.eq(i).find('img');
+					var x = e.clientX - oImg.offset().left,
+						y = e.clientY - oImg.offset().top;
+					var dis = Math.sqrt(x*x + y*y);
+					var w = h = Math.abs(1 - dis/300) * 128;
+
+					if(w < 64 || dis > 300){
+						w = 64;
+					}
+					if(h < 64  || dis > 300){
+						h = 64;
+					}
+
+					oImg.width(w);
+					oImg.height(h);
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="taskbar">
+		<ul id="balls">
+			<li><img src="images/1.png" alt=""></li>
+			<li><img src="images/2.png" alt=""></li>
+			<li><img src="images/3.png" alt=""></li>
+			<li><img src="images/4.png" alt=""></li>
+			<li><img src="images/5.png" alt=""></li>
+		</ul>
+	</div>
+</body>
+</html>
+
