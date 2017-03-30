@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>隔行变色</title>
+	<style>
+		body,div,input,button,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 300px;
+			height: 30px;
+			text-align: center;
+			margin: 0 auto;
+			margin-top: 50px;
+		}
+		#container{
+			width: 500px;
+			height: 500px;
+			background-color: #eee;
+			margin: 0 auto;
+			overflow: auto;
+		}
+		#container ul{
+			list-style: none;
+		}
+		#container ul li{
+			height: 50px;
+			border: 1px solid #999;
+			display: block;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			(function(){
+				var oTxt = document.getElementById('txt'),
+				oBtn = document.getElementById('btn'),
+				oUl = document.getElementById('container').children[0];
+
+				oBtn.onclick = fnClick;
+
+				function fnClick(){
+					var num = parseInt(oTxt.value),
+						aColor = ['pink','skyblue','orange','green','maroon'],
+						i,r;
+
+					if(isNaN(num)) return;
+
+					num = num % aColor.length ? num % aColor.length : aColor.length;
+
+					for(i=0; i<10; i++){
+						r = document.createElement('li');
+						r.style.backgroundColor = aColor[i%num];
+						oUl.appendChild(r);
+					}
+					oTxt.value = '';
+					oTxt.focus();
+				}
+				oTxt.focus();
+			})();
+		};
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input id="txt" type="number" placeholder="请输入隔行数" max="5">
+		<button id="btn">确定</button>
+	</div>
+	<div id="container">
+		<ul></ul>
+	</div>
+</body>
+</html>
