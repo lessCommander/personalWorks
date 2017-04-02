@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽图片替换位置</title>
+	<style>
+		body,div,ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			-moz-user-select: none;
+		}
+		#container{
+			width: 340px;
+			height: 340px;
+			background-color: #ccc;
+			margin: 20px auto;
+		}
+		#pics{
+			list-style: none;
+			position: relative;
+		}
+		#pics li{
+			width: 100px;
+			height: 100px;
+			background-color: purple;
+			color: #eee;
+			margin-left: 10px;
+			margin-top: 10px;
+			float: left;
+			text-align: center;
+			font-size: 50px;
+			line-height: 100px;
+			cursor: default;
+		}
+		#pics li.touch{
+			border: 3px solid yellow;
+			box-sizing: border-box;
+		}
+	</style>
+	<script src="../jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var $doc = $(document),
+				$aPic = $('#pics').find('li'),
+				iLen = $aPic.length;
+			var aPos = [];
+			var n, e, iX, iY;
+			var zInx = 1;
+
+			//布局转换
+			for(var i = 0; i < iLen; i++){
+				aPos[i] = {left: $aPic[i].offsetLeft, top: $aPic[i].offsetTop};
+			}
+			for(var i = 0; i < iLen; i++){
+				$aPic.eq(i).css({
+					'position' : 'absolute', 
+					'margin' : '0',
+					'left' : aPos[i].left,
+					'top' : aPos[i].top
+				});
+			}
+
+			//添加事件
+			$aPic.on('mousedown', fnDown);
+
+			//禁止默认选中、拖动
+			$doc.on('dragstart selectstart', function(){return false;});
+
+			function fnDown(ev){
+				e = ev || window.event;
+				iX = e.clientX - this.offsetLeft;
+				iY = e.clientY - this.offsetTop;
+				$(this).css('zIndex', ++zInx);
+				$doc.on('mousemove', myBind(this, fnMove));
+				$doc.on('mouseup', myBind(this, fnUp));
+			}
+
+			function fnMove(ev){
+				e = ev || window.event;
+				$(this).css({
+					'left': e.clientX - iX,
+					'top': e.clientY - iY
+				});
+				
+				$aPic.removeClass('touch');
+				n = nearest(this);
+				if(n !== -1){
+					$aPic.eq(n).addClass('touch');
+				}
+			}
+
+			function fnUp(ev){
+				var oPos1, oPos2;
+				var n = nearest(this);
+				if(n !== -1){
+					$aPic.eq(n).css('zIndex', ++zInx);
+					$(this).css('zIndex', ++zInx);
+					oPos1 = aPos[$(this).index()];
+					oPos2 = aPos[n];
+					$(this).animate(oPos2);
+					aPos[$(this).index()] = oPos2;
+					$aPic.eq(n).animate(oPos1);
+					aPos[n] = oPos1;
+					$aPic.eq(n).removeClass('touch');
+				}else{
+					$(this).animate(aPos[$(this).index()]);
+				}
+				$doc.off('mousemove mouseup');
+			}
+
+			//查找碰触到的最近的div
+			function nearest(obj){
+				var min = 10000,
+					minInx = -1,
+					x1, y1, x2, y2, z;
+				for(var i = 0; i <iLen; i++){
+					if(checkTouch(obj, $aPic[i]) && obj != $aPic[i]){
+						x1 = obj.offsetLeft + obj.offsetWidth/2;
+						y1 = obj.offsetTop + obj.offsetHeight/2;
+						x2 = $aPic[i].offsetLeft + $aPic[i].offsetWidth/2;
+						y2 = $aPic[i].offsetTop + $aPic[i].offsetHeight/2;
+						z = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+						if(z < min){
+							min = z;
+							minInx = i;
+						}
+					}
+				}
+				return minInx;
+			}
+
+			//碰触检测
+			function checkTouch(o1,o2){
+				var l1 = o1.offsetLeft,
+					r1 = l1 + o1.offsetWidth,
+					t1 = o1.offsetTop,
+					b1 = t1 + o1.offsetHeight;
+				var l2 = o2.offsetLeft,
+					r2 = l2 + o2.offsetWidth,
+					t2 = o2.offsetTop,
+					b2 = t2 + o2.offsetHeight;
+				if(r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2){
+					return false;
+				}else{
+					return true;
+				}
+			}
+
+			//绑定上下文
+			function myBind(con, fn){
+				return function(){
+					fn.apply(con);
+				};
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="container">
+		<ul id="pics">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+		</ul>
+	</div>
+</body>
+</html>
