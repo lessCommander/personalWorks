@@ -35,14 +35,17 @@
 		window.onload = function(){
 			(function(){
 				var oTxt = document.getElementById('txt'),
-				oBtn = document.getElementById('btn'),
-				oUl = document.getElementById('container').children[0];
+					oBtn = document.getElementById('btn'),
+					oUl = document.getElementById('container').children[0],
+					aColor = ['pink','skyblue','orange','green','maroon'],
+					sColor = 'yellow';
 
 				oBtn.onclick = fnClick;
+				oUl.onmouseover = fnMouseOver;
+				oUl.onmouseout = fnMouseOut;
 
 				function fnClick(){
 					var num = parseInt(oTxt.value),
-						aColor = ['pink','skyblue','orange','green','maroon'],
 						i,r;
 
 					if(isNaN(num)) return;
@@ -52,19 +55,32 @@
 					for(i=0; i<10; i++){
 						r = document.createElement('li');
 						r.style.backgroundColor = aColor[i%num];
+						r.cIndex = i%num;
 						oUl.appendChild(r);
 					}
 					oTxt.value = '';
 					oTxt.focus();
 				}
-				oTxt.focus();
+
+				function fnMouseOver(ev){
+					var e = ev || window.event,
+						tar = e.target || e.srcElement;
+					tar.style.backgroundColor = sColor;
+				}
+
+				function fnMouseOut(ev){
+					var e = ev || window.event;
+					var tar = e.target || e.srcElement;
+					tar.style.backgroundColor = aColor[tar.cIndex];
+
+				}
 			})();
 		};
 	</script>
 </head>
 <body>
 	<div id="box">
-		<input id="txt" type="number" placeholder="请输入隔行数" max="5">
+		<input id="txt" type="number" autofocus placeholder="请输入隔行数" max="5">
 		<button id="btn">确定</button>
 	</div>
 	<div id="container">
