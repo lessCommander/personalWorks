@@ -73,7 +73,7 @@
 						oList.appendChild(oLi);
 					}
 					oTxt.value = '';
-
+					oTxt.focus();
 					/*$(oLi).fadeIn(1000, function(){
 						$(this).css('backgroundColor', 'inherit');
 					});*/
@@ -82,10 +82,6 @@
 
 			function myTrim(str){
 				return str.replace(/^(\s)+|(\s)+$/g, '');
-			}
-
-			function lg(str){
-				console.log(str);
 			}
 		};
 	</script>
@@ -96,7 +92,7 @@
 			<ul id="list"></ul>
 		</div>
 		<div class="inp">
-			<textarea name="" id="text" cols="30" rows="5" placeholder="请在此输入回复内容"></textarea>
+			<textarea name="" id="text" cols="30" rows="5" placeholder="请在此输入回复内容" autofocus></textarea>
 			<button id="btn">回复</button>
 		</div>
 	</div>
