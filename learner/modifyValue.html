@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>修改文本框的值</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#list{
+			width: 600px;
+			height: 300px;
+			background-color: #ddd;
+			border: 1px solid #000;
+			margin: 100px auto;
+		}
+		#list h3{
+			border-bottom: 1px solid #000;
+			background-color: black;
+			color:white;
+		}
+		#list ul li{
+			list-style: none;
+			padding: 5px;
+			background-color: white;
+			border-bottom: 1px solid #000;
+		}
+		#list ul li a{
+			float: right;
+		}
+		#list ul li input{
+			display: none;
+		}
+	</style>
+	<script type="text/javascript" src="../jquery-1.12.4.js"></script>
+	<script>
+	Function.prototype.bind = Function.prototype.bind || function(context){
+		var _this = this;
+		return function(){
+			_this.apply(context, arguments);
+		};
+	};
+
+	$(function(){
+		var $oUl = $('#list').find('ul').eq(0),
+			$aLi = $oUl.find('li'),
+			len = $aLi.length;
+
+		for(var i = 0; i < len; i++){
+			$aLi.eq(i).find('a').eq(0).click(fnEdit.bind(this, i, 'edit'));
+			$aLi.eq(i).find('input').eq(1).click(fnEdit.bind(this, i, 'save'));
+			$aLi.eq(i).find('input').eq(2).click(fnEdit.bind(this, i, 'cancel'));
+		}
+
+		function fnEdit(inx, type){
+			var $oSpan2 = $aLi.eq(inx).find('span').eq(1),
+				$oInp = $aLi.eq(inx).find('input'),
+				$aA = $aLi.eq(inx).find('a').eq(0),
+				str = $oSpan2[0].sSave || '';
+
+			switch(type){
+				case 'edit':
+					$oSpan2[0].sSave = $oSpan2.html();
+					$oSpan2.hide();
+					$oInp.show().eq(0).val($.trim($oSpan2.html())).focus();
+					$aA.hide();
+					break;
+				case 'save':
+					$oSpan2.show().html($oInp.eq(0).val());
+					$oInp.hide();
+					$aA.show();
+					break;
+				case 'cancel':
+					$oSpan2.show().html(str);
+					$oInp.hide();
+					$aA.show();
+					break;
+			}
+			
+		}
+
+		
+
+	});
+	</script>
+</head>
+<body>
+	<div id="list">
+		<h3>电脑配件列表</h3>
+		<ul>
+			<li>
+				<span>主板：</span><span>B250</span>
+				<a href="#" title="点击编辑">编辑</a>
+				<input type="text">
+				<input type="button" value="保存">
+				<input type="button" value="取消">
+			</li>
+			<li>
+				<span>CPU：</span><span>i5 7500</span>
+				<a href="#" title="点击编辑">编辑</a>
+				<input type="text">
+				<input type="button" value="保存">
+				<input type="button" value="取消">
+			</li>
+			<li>
+				<span>显卡：</span><span>GTX 1060 6G</span>
+				<a href="#" title="点击编辑">编辑</a>
+				<input type="text">
+				<input type="button" value="保存">
+				<input type="button" value="取消">
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
