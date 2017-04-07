@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表格操作</title>
+	<style>
+		.tbox{
+			width: 400px;
+			background-color: #eee;
+			margin: 10px auto;
+		}
+		#tab1{
+			border:1px solid black;
+			width:400px;
+		}
+		#tab1 td{
+			border: 1px solid #000;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			(function(){
+				var oTxt = document.getElementById('txt1'),
+					oAdd = document.getElementById('add'),
+					oTable = document.getElementById('tab1'),
+					iInx = oTable.tBodies[0].rows.length;
+
+				oAdd.onclick = fnAdd;
+
+				function fnAdd(){
+					var str = oTxt.value.replace(/^\s*|\s*$/, ''),
+						oTr = null,
+						oIndex = null,
+						oName = null,
+						oTd = null,
+						oA = null;
+
+					var iRow = oTable.tBodies[0].rows.length;
+
+					if(str){
+						oTr = oTable.insertRow(++iRow);
+
+						oIndex = oTr.insertCell(0);
+						oIndex.innerHTML = '<td>' + (++iInx) + '</td>';
+
+						oName = oTr.insertCell(1);
+						oName.innerHTML = '<td>' + str + '</td>';
+
+						oA = document.createElement('a');
+						oA.innerHTML = 'Delete';
+						oA.href = '#';
+						oA.onclick = function(){
+							oA.onclick = null;
+							oTable.tBodies[0].removeChild(this.parentNode.parentNode);
+							oTxt.focus();
+						};
+						oTd = oTr.insertCell(2);
+						oTd.appendChild(oA);
+					}
+
+					oTxt.value = '';
+					oTxt.focus();
+				}
+				oTxt.focus();
+				document.ondragstart = function(){
+					return false;
+				};
+			})();
+		};
+	</script>
+</head>
+<body>
+	<div class="tbox">
+		<input id="txt1" type="text" autofocus />
+		<input id="add" type="button" value="添加" />
+		<table id="tab1">
+			<caption>Color Table Caption</caption>
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Name</td>
+					<td>Config</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Red</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Blue</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Purple</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Green</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>Grey</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>Tomato</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
