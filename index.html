@@ -59,7 +59,7 @@
 				aList = $('#content').find('ul');
 
 			for (var i=0, len=aTitle.length; i<len; i++){
-				aTitle.eq(i).on('click', titleClick.bind(this, i));
+				aTitle.eq(i).on('mouseover', titleClick.bind(this, i));
 			}
 			function titleClick(index, e){
 				for (var i=0; i<len; i++){
@@ -69,6 +69,12 @@
 				aTitle.eq(index).addClass('active');
 				aList.eq(index).addClass('list-active');
 			}
+
+			$('#content ul').find('li').on('mouseover',function(){
+				$(this).css('background-color', 'gold');
+			}).on('mouseout',function(){
+				$(this).css('background-color', '#fff');
+			});
 		});
 	</script>
 </head>
@@ -76,8 +82,8 @@
 	<div class="container">
 		<div class="title">
 			<ul id="list-title" class="list-title">
-				<li class="active">初出茅庐</li>
-				<li>初窥门径</li>
+				<li class="active">原生js</li>
+				<li>使用jquery</li>
 			</ul>
 		</div>
 		<div id="content" class="content">
@@ -97,6 +103,7 @@
 				<li><a href="learner/circleButtons.html">3.模拟任务栏按钮</a></li>
 				<li><a href="learner/dragPic.html">4.拖拽替换图片位置</a></li>
 				<li><a href="learner/modifyValue.html">5.修改列表中的值</a></li>
+				<li><a href="learner/rndPic.html">6.随机滚动的图片</a></li>
 			</ul>
 		</div>
 	</div>
