@@ -12,7 +12,7 @@
 			width: 400px;
 			height: 400px;
 			background-color: #eee;
-			margin: 100px auto;
+			margin: 50px auto;
 			border: 1px solid #000;
 		}
 		#box .son{
@@ -45,57 +45,44 @@
 			var aSon = $('#box .son'),
 				oList = [];
 
+			//创建实例
 			aSon.each(function(){
-				var o = $(this).find('ul').first();
-				oList.push(createInstance(o));
+				var $oUl = $(this).find('ul').eq(0);
+				oList.push(new ScrolledPic($oUl));
 			});
 
-			/*for (var i = 0; i < oList.length; i++) {
-				oList[i].startScroll();
-			}*/
-			console.log(oList[0]);
-			console.log(oList[1]);
-oList[0].startScroll();
-oList[1].startScroll();
-			function createInstance(obj){
-				return new PicScroll(obj);
+			//给每一个实例添加滚动动画
+			for (var i = 0; i < oList.length; i++) {
+				clearInterval(oList[i].iTimer);
+				// oList[i].iTimer = setInterval(startScroll.bind(oList[i]), getRndTime());
+				oList[i].iTimer = setInterval($.proxy(startScroll, oList[i]), getRndTime());
 			}
 
-			function PicScroll($oUl){
-				this.obj = $oUl;
-				this.singleH = this.obj.find('li').eq(0).outerHeight();
-				this.maxNum = this.obj.find('li').length - 1;
-				this.iTimer = null;
-
-				if(typeof PicScroll.prototype.getRnd == 'undefined'){
-					//获取x-y之间的随机整数
-					PicScroll.prototype.getRnd = function(x, y){
-						return Math.floor(Math.random() * (y - x + 1)) + x;
-					};
-					//获取随机滚动的高度
-					PicScroll.prototype.fnGetH = function(){
-						var n = this.getRnd(0, this.maxNum),
-							h = this.singleH * n;
-						return h;
-					}
-				}
-
-				this.getRndTime = function(){
-					return this.getRnd(1500, 5000);
+			//滚动的个体构造器
+			function ScrolledPic(o){
+				this.obj = o;
+				this.singleH = o.find('li').eq(0).outerHeight();	//单个li的高度
+				this.maxNum = o.find('li').length - 1;				//li的个数减1，用来计算滚动高度
+				this.fnGetH = function(){			//获取随机高度
+					return -this.singleH * getRnd(0, this.maxNum);
 				};
+				this.iTimer = null;					//计时器
+			}
 
-				this.startScroll = function(){
-					that = this;
-					play();
-					function play(){
-						that.obj.animate({
-							'top': -that.fnGetH()
-						},function(){
-							clearTimeout(that.iTimer);
-							that.iTimer = setTimeout(play, that.getRndTime());
-						});
-					}
-				};
+			//获取x-y之间的随机整数
+			function getRnd(x, y){
+				return Math.floor(Math.random() * (y - x + 1)) + x;
+			};
+
+			//获取随机间隔时间
+			function getRndTime(){
+				return getRnd(1500, 5000);
+			}
+
+			//滚动动画
+			function startScroll(){
+				that = this;
+				that.obj.animate({'top': that.fnGetH()}, 500);
 			}
 		});
 	</script>
