@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JsonP练习</title>
+	<style>
+		body,div,button,ul,li{
+			padding: 0;
+			color: #666;
+		}
+		#box{
+			width: 500px;
+			margin: 10px auto;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			background-color: pink;
+			border-bottom: 1px dashed #333;
+		}
+	</style>
+	<script>
+		function cb(data){
+			var oBox = document.getElementById('box'),
+				oUl = document.createElement('ul'),
+				aResult = data.result,
+				html = '';
+
+			for(var i = 0, len = aResult.length; i < len; i++){
+				html += '<li>' + '搜索结果：' + aResult[i][0] + '，个数：' + aResult[i][1] + '</li>';
+			
+				oUl.innerHTML = html;
+				oBox.appendChild(oUl);
+			}
+		}
+	</script>
+	<script>
+		window.onload = function(){
+			var oBtn = document.getElementById('btn');
+
+			oBtn.onclick = function(){
+				var oUl = document.getElementsByTagName('ul')[0],
+					oScript = null;
+
+				if(typeof oUl == 'undefined'){
+					oScript = document.createElement('script');
+					oScript.src = 'https://suggest.taobao.com/sug?code=utf-8&q=iphone&callback=cb';
+					document.body.appendChild(oScript);
+				}
+			};
+		};
+	</script>
+</head>
+<body>
+	<div id="box">
+		<button id="btn">加载JSONP</button>
+	</div>
+</body>
+</html>
