@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>吸顶条</title>
+	<style rel="stylesheet" type="text/css">
+		body,div{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			height: 2000px;
+			position: relative;
+		}
+		#nav{
+			width: 500px;
+			background-color: skyblue;
+			position: absolute;
+			left: 0;
+			top: 200px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oNav = document.getElementById('nav')
+				iTop = oNav.offsetTop;
+
+			window.onscroll = document.body.onscroll = fnScroll;
+
+			function fnScroll(){
+				var iScrTop = document.documentElement.scrollTop || document.body.scrollTop;
+				if(iScrTop > iTop){
+					oNav.style.top = iScrTop + 'px';
+				}else{
+					oNav.style.top = iTop + 'px';
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="nav">模拟吸顶条</div>
+</body>
+</html>
