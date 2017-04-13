@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+body, h1, ul, div, dl, dt, dd, p{
+	margin: 0;
+	padding: 0;
+	color: #666;
+	font-family: "微软雅黑";
+}
+ul{
+	list-style: outside none none;
+}
+a{
+	text-decoration: none;
+	color: #666;
+}
+#nav{
+	width: 100%;
+	height: 60px;
+}
+#nav .center{
+	width: 1006px;
+	height: 60px;
+	background-color: #eee;
+	position: relative;
+	margin: 0 auto;
+}
+#nav .h1{
+	width: 180px;
+	height: 60px;
+	background-image: url(../imgs/logo1.png);
+	text-indent: -9999px;
+	float: left;
+}
+#nav .link{
+	position: absolute;
+	right: 0;
+	bottom: 1px;
+}
+#nav .link li{
+	width: 120px;
+	text-align: center;
+	float: left;
+}
+
+
+#footer{
+	width: 100%;
+}
+#footer .center{
+	width: 1006px;
+	background-color: #eee;
+	margin: 0 auto;
+	padding: 20px 0px;
+}
+#footer .center dl{
+	display: inline-block;
+	border-left: 1px solid #aaa;
+	padding: 20px 30px;
+	margin-left: 100px;
+}
+#footer .center dl:first-child{
+	border-left: none;
+}
+#footer .center dl dt{
+	font-size: 26px;
+	margin-bottom: 17px;
+}
+#footer .center dl dd{
+	font-size: 14px;
+	margin-top: 10px;
+}
+#register{
+	margin: 10px auto;
+}
+#register p{
+	text-align: center;
+	margin-top: 5px;
+	font-size: 13px;
+}
