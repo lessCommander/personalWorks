@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手风琴效果</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#container{
+			width: 800px;
+			height: 200px;
+			margin: 50px auto;
+			border: 1px solid #ccc;
+			position: relative;
+			overflow: hidden;
+		}
+		#container>ul{
+			width: 800px;
+			height: 200px;
+			list-style: none;
+		}
+		#container>ul>li{
+			width: 400px;
+			height: 200px;
+			line-height: 200px;
+			font-size: 50px;
+			background-color: orange;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#container>ul>li:nth-child(2){
+			background-color: skyblue;
+		}
+		#container>ul>li:nth-child(3){
+			background-color: pink;
+		}
+		#container>ul>li:nth-child(4){
+			background-color: yellow;
+		}
+		#container>ul>li:nth-child(5){
+			background-color: olive;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oBox = document.getElementById('container'),
+				oUl = oBox.getElementsByTagName('ul'),
+				oLi = oUl[0].getElementsByTagName('li');
+			var w1 = oLi[0].offsetWidth,
+				w2 = 100;
+
+			function initPos(){
+				for (var i = 1, iLen = oLi.length; i < iLen; i++){
+					oLi[i].style.left = w1 + w2 * (i - 1) + 'px';
+				}
+			}
+			initPos();
+
+			for (var i = 0, iLen = oLi.length; i < iLen; i++){
+				(function(n){
+					oLi[n].onmouseover = function(){
+						initPos();
+						for (j = 0; j <= n; j++){
+							oLi[j].style.left = w2 * j + 'px';
+						}
+					};
+				})(i);
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="container">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+	</div>
+</body>
+</html>

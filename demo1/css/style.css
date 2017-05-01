@@ -13,6 +13,9 @@ a{
 	text-decoration: none;
 	color: #666;
 }
+a:hover{
+	color: orange;
+}
 #nav{
 	width: 100%;
 	height: 60px;
@@ -42,6 +45,29 @@ a{
 	float: left;
 }
 
+#product{
+	width: 1006px;
+	height: 1200px;
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+#product .pro_title{
+	width: 1006px;
+	height: 40px;
+	margin: 0 auto;
+	border-bottom: 3px solid orange;
+}
+#product .pro_title li{
+	width: 100px;
+	text-align: center;
+	line-height: 40px;
+	cursor: pointer;
+	display: inline-block;
+}
+#product li.pro_title_active{
+	background-color: orange;
+}
 
 #footer{
 	width: 100%;
