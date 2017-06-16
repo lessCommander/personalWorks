@@ -5,11 +5,34 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scal=1.0, user-scalable=no">
 	<title>响应式网站Demo</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css">
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			//轮播图3秒滚动一次
+			$('#carousel1').carousel({
+				interval: 3000
+			});
+
+			//拖动浏览器大小，轮播图左右两边的箭头高度自动居中
+			/*$(window).resize(function (){
+				var iTimer;
+				clearTimeout(iTimer);
+				iTimer = setTimeout(fnLineHeight, 200);
+			});
+
+			function fnLineHeight(){
+				var $height = $('#carousel1 .item.active').height() + 'px';
+				$('#carousel1 a').css('line-height', $height);
+			}
+			fnLineHeight();*/
+		});
+	</script>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<a href="#" class="navbar-brand">IT百科</a>
@@ -25,7 +48,7 @@
 					<li class="dropdown">
 						<a href="#" data-toggle="dropdown">百科分类<span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-left">
-							<li class="active"><a href="#">手机</a></li>
+							<li><a href="#">手机</a></li>
 							<li><a href="#">数码</a></li>
 							<li><a href="#">电脑</a></li>
 							<li><a href="#">网络</a></li>
@@ -39,6 +62,117 @@
 			</div>
 		</div>
 	</nav>
+	<!-- 轮播图 -->
+	<div id="carousel1" class="carousel slide">
+		<ol class="carousel-indicators">
+			<li data-target="#carousel1" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel1" data-slide-to="1"></li>
+			<li data-target="#carousel1" data-slide-to="2"></li>
+		</ol>
+		<div class="carousel-inner">
+			<div class="item active" style="background-color: #C0BEBF;">
+				<img src="img/carousel1.jpg" alt="图片1">
+			</div>
+			<div class="item" style="background-color: #ABA79E;">
+				<img src="img/carousel2.jpg" alt="图片2">
+			</div>
+			<div class="item" style="background-color: #030104;">
+				<img src="img/carousel3.jpg" alt="图片3">
+			</div>
+		</div>
+		<a href="#carousel1" class="carousel-control left" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a href="#carousel1" class="carousel-control right" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>
+	<!-- 内容部分1 -->
+	<div class="section1">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="media">
+						<div class="media-left">
+							<img src="img/content-img-1.jpg" class="media-object">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">手机·通讯</h3>
+							<h4>全视曲面屏 三星S8新旗舰中国上市</h4>
+							<p>2017年MWC三星公司正式发布新一代旗舰手机三星Galaxy S8，新机采用...</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="media">
+						<div class="media-left">
+							<img src="img/content-img-2.jpg" class="media-object">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">相机·数码</h3>
+							<h4>佳能5千万像素神器全拆解</h4>
+							<p>佳能5Ds/5Ds R作为EOS 5D系列的新成员，它们除了重点的5060万有效...</p>
+						</div>
+					</div>
+				</div>
+			</div> <!--row end -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="media">
+						<div class="media-left">
+							<img src="img/content-img-3.jpg" class="media-object">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">平板·整机</h3>
+							<h4>2017笔记本显卡天梯图</h4>
+							<p>显卡天梯图是我们选购台式机笔记本时对比显卡配置高低的一个重要工...</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="media">
+						<div class="media-left">
+							<img src="img/content-img-4.jpg" class="media-object">
+						</div>
+						<div class="media-body">
+							<h3 class="media-heading">系统·软件</h3>
+							<h4>微软发布Windows 10 S</h4>
+							<p>北京时间5月3日凌晨，微软发布了Windows 10 S操作系统。微软表示，...</p>
+						</div>
+					</div>
+				</div>
+			</div> <!--row end -->
+		</div>	<!--container end-->
+	</div>	<!--section1 end-->
+	<!-- 内容部分2 -->
+	<div class="section2">
+		<h2>最新产品</h2>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h4>英特尔18核心Core i9 极致版处理器10月开始出货</h4>
+					<p>英特尔在本周宣布Core X系列处理器进一步上市时程规划，4核心到10核心的Core X系列处理器将于6月下旬出货，12核心处理器将在8月出货，至于最高18核心的Core i9极致版处理器则会在10月出货。</p>
+				</div>
+				<div class="col-md-6">
+					<img src="img/content-img-5.jpg" class="img-responsive center-block img5" alt="">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<img src="img/content-img-6.jpg" class="img-responsive center-block img6" alt="">
+				</div>
+				<div class="col-md-6">
+					<h4>王中之王 影驰GTX1080Ti HOF限量版评测</h4>
+					<p>作为影驰“金字塔尖”的显卡系列，名人堂自2010年诞生起已走过8载春秋，凭借“一切只为性能”的口号，其在玩家群中竖立了极致性能的形象。名人堂名称取自英文“Hall Of Fame”，因此名人堂系列显卡也被简称为“HOF”，其最明显的特点就是通体白色，连PCB也是纯白的，市面上仅此一家。</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<!-- 页面底部 -->
+	<div class="footer">
+		<p>About PCGROUP | 网站介绍 | 隐私政策 | 广告服务 | 合作媒体 | 投稿指南 | 使用条款 | 网站律师 | 联系我们 | 分站加盟 | 招聘精英 | 网站地图 | <strong><a href="#">用户体验提升计划</a></strong></p>
+		<p>未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+	</div>
 </body>
 </html>
