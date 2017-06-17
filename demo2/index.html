@@ -2,10 +2,10 @@
 <html lang="zh">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scal=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>响应式网站Demo</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
@@ -27,12 +27,33 @@
 				$('#carousel1 a').css('line-height', $height);
 			}
 			fnLineHeight();*/
+
+			// 内容部分2-文字相对于图片垂直居中
+			function fnSec2Height(){
+				var sec2_h = ($('.section2 .sec2-img').eq(0).height() - $('.section2 .sec2-txt').eq(0).height()) /2 + 'px';
+				$('.section2 .sec2-txt').eq(0).css('margin-top', sec2_h);
+
+				sec2_h = ($('.section2 .sec2-img').eq(1).height() - $('.section2 .sec2-txt').eq(1).height()) /2 + 'px';
+				$('.section2 .sec2-txt').eq(1).css('margin-top', sec2_h);
+
+				var doc_w = $(document).innerWidth();
+				if (doc_w < 992){
+					$('.section2 .sec2-txt').eq(0).css('margin-top', '0px');
+					$('.section2 .sec2-txt').eq(1).css('margin-top', '0px');
+				}
+			}
+			fnSec2Height();
+			$(window).resize(function (){
+				var iTimer;
+				clearTimeout(iTimer);
+				iTimer = setTimeout(fnSec2Height, 200);
+			})
 		});
 	</script>
 </head>
 <body>
 	<!-- 导航条 -->
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<a href="#" class="navbar-brand">IT百科</a>
@@ -48,13 +69,13 @@
 					<li class="dropdown">
 						<a href="#" data-toggle="dropdown">百科分类<span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-menu-left">
-							<li><a href="#">手机</a></li>
-							<li><a href="#">数码</a></li>
-							<li><a href="#">电脑</a></li>
-							<li><a href="#">网络</a></li>
+							<li class="disabled"><a href="#">手机</a></li>
+							<li class="disabled"><a href="#">数码</a></li>
+							<li class="disabled"><a href="#">电脑</a></li>
+							<li class="disabled"><a href="#">网络</a></li>
 						</ul>
 					</li>
-					<li><a href="#">百科学堂</a></li>
+					<li><a href="study.html">百科学堂</a></li>
 					<li><a href="#">IT人物</a></li>
 					<li><a href="#">IT公司</a></li>
 					<li><a href="#">IT之最</a></li>
@@ -94,7 +115,7 @@
 				<div class="col-md-6">
 					<div class="media">
 						<div class="media-left">
-							<img src="img/content-img-1.jpg" class="media-object">
+							<img src="img/content-img-1.jpg" class="media-object img-thumbnail">
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">手机·通讯</h3>
@@ -106,7 +127,7 @@
 				<div class="col-md-6">
 					<div class="media">
 						<div class="media-left">
-							<img src="img/content-img-2.jpg" class="media-object">
+							<img src="img/content-img-2.jpg" class="media-object img-thumbnail">
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">相机·数码</h3>
@@ -120,7 +141,7 @@
 				<div class="col-md-6">
 					<div class="media">
 						<div class="media-left">
-							<img src="img/content-img-3.jpg" class="media-object">
+							<img src="img/content-img-3.jpg" class="media-object img-thumbnail">
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">平板·整机</h3>
@@ -132,7 +153,7 @@
 				<div class="col-md-6">
 					<div class="media">
 						<div class="media-left">
-							<img src="img/content-img-4.jpg" class="media-object">
+							<img src="img/content-img-4.jpg" class="media-object img-thumbnail">
 						</div>
 						<div class="media-body">
 							<h3 class="media-heading">系统·软件</h3>
@@ -146,24 +167,28 @@
 	</div>	<!--section1 end-->
 	<!-- 内容部分2 -->
 	<div class="section2">
-		<h2>最新产品</h2>
+		<h2 class="section2-caption">最新产品</h2>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 section2-text1 sec2-txt">
 					<h4>英特尔18核心Core i9 极致版处理器10月开始出货</h4>
 					<p>英特尔在本周宣布Core X系列处理器进一步上市时程规划，4核心到10核心的Core X系列处理器将于6月下旬出货，12核心处理器将在8月出货，至于最高18核心的Core i9极致版处理器则会在10月出货。</p>
 				</div>
-				<div class="col-md-6">
-					<img src="img/content-img-5.jpg" class="img-responsive center-block img5" alt="">
+				<div class="col-md-6 section2-img1 sec2-img">
+					<a href="javascript:" class="thumbnail">
+						<img src="img/content-img-5.jpg" class="img-responsive center-block img5" alt="">
+					</a>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<img src="img/content-img-6.jpg" class="img-responsive center-block img6" alt="">
-				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 sec2-txt">
 					<h4>王中之王 影驰GTX1080Ti HOF限量版评测</h4>
 					<p>作为影驰“金字塔尖”的显卡系列，名人堂自2010年诞生起已走过8载春秋，凭借“一切只为性能”的口号，其在玩家群中竖立了极致性能的形象。名人堂名称取自英文“Hall Of Fame”，因此名人堂系列显卡也被简称为“HOF”，其最明显的特点就是通体白色，连PCB也是纯白的，市面上仅此一家。</p>
+				</div>
+				<div class="col-md-6 sec2-img">
+					<a href="javascript:" class="thumbnail">
+						<img src="img/content-img-6.jpg" class="img-responsive center-block img6" alt="">
+					</a>
 				</div>
 			</div>
 		</div>
