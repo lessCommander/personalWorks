@@ -11,6 +11,11 @@ a{
 a:hover{
 	color: #fff;
 }
+blockquote{
+	padding: 0px 0px 0px 25px;
+	margin-left: 30px;
+	color: #05a;
+}
 
 /*导航条*/
 .navbar-brand{
@@ -48,10 +53,6 @@ a:hover{
 .section1 h4{
 	font-size: 16px;
 }
-.section1 p{
-	font-size: 12px;
-	display: none;
-}
 
 /*内容部分2*/
 .section2{
@@ -78,12 +79,10 @@ a:hover{
 .section-study{
 	margin-top: 50px;
 }
-.section-study blockquote{
-	padding: 0px 0px 0px 25px;
-	margin-left: 30px;
-}
 .section-study .study-left .row{
 	margin: 5px 0px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed #eee;
 }
 .section-study h4{
 	font-weight: bold;
@@ -95,19 +94,55 @@ a:hover{
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+.hot-right{
+	padding: 5px;
+}
+.hot-right h5{
+	font-size: 16px;
+	color: #05a;
+}
+.hot-right ul{
+	padding: 5px 10px;
+	list-style: none;
+	background-color: #f1f5f9;
+}
+.hot-right ul em{
+	display: inline-block;
+	width: 24px;
+	height: 28px;
+	color: #aaa;
+	font-weight: bold;
+}
+.hot-right ul a{
+	color: #000;
+}
+.mypage{
+	text-align: center;
+}
+
+/*IT人物*/
+.section-people{
+	margin-top: 50px;
+}
+
 
 /*媒体查询*/
 /*小屏幕*/
 @media (min-width: 768px){
 	.section1 h3{
-		font-size: 20px;
+		font-size: 19px;
 	}
 	.section1 h4{
-		font-size: 17px;
+		font-size: 15px;
 	}
 	.section1 p{
-		font-size: 13px;
-		display: none;
+		font-size: 12px;
+	}
+	.section2 .section2-text1{
+		float: right;
+	}
+	.section2 .section2-img1{
+		float: left;
 	}
 	.section-study h4{
 		font-size: 17px;
@@ -116,14 +151,13 @@ a:hover{
 /*中屏幕*/
 @media (min-width: 992px){
 	.section1 h3{
-		font-size: 22px;
+		font-size: 20px;
 	}
 	.section1 h4{
-		font-size: 18px;
+		font-size: 16px;
 	}
 	.section1 p{
 		font-size: 14px;
-		display: block;
 	}
 	.section2 .section2-text1{
 		float: right;
@@ -138,14 +172,13 @@ a:hover{
 /*大屏幕*/
 @media (min-width: 1200px){
 	.section1 h3{
-		font-size: 24px;
+		font-size: 21px;
 	}
 	.section1 h4{
-		font-size: 19px;
+		font-size: 17px;
 	}
 	.section1 p{
-		font-size: 15px;
-		display: block;
+		font-size: 14px;
 	}
 	.section2 .section2-text1{
 		float: right;
