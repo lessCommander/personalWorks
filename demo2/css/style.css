@@ -124,7 +124,24 @@ blockquote{
 .section-people{
 	margin-top: 50px;
 }
-
+#hums .panel-title a{
+	color: #666;
+	display: block;
+}
+#hums a:hover{
+	color: orange;
+	text-decoration: none;
+}
+#hums p{
+	display: inline-block;
+	text-indent: 2em;
+}
+#hums p>a{
+	color: #000;
+}
+.section-people .more{
+	margin-bottom: 20px;
+}
 
 /*媒体查询*/
 /*小屏幕*/
