@@ -143,6 +143,31 @@ blockquote{
 	margin-bottom: 20px;
 }
 
+/*IT公司*/
+.jumbotron{
+	margin-top: 50px;
+	margin-bottom: 0px;
+}
+.company{
+	padding: 10px;
+	margin-bottom: 20px;
+}
+.company a{
+	color: #666;
+}
+.company .scroll-1{
+	height: 350px;
+	overflow: auto;
+	position: relative;
+}
+.company .scroll-1 p{
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px dashed #aaa;
+}
+.company .scroll-1 p:last-child{
+	border-bottom: none;
+}
 /*媒体查询*/
 /*小屏幕*/
 @media (min-width: 768px){
