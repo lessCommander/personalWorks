@@ -142,6 +142,9 @@ blockquote{
 .section-people .more{
 	margin-bottom: 20px;
 }
+.section-people .hot-right .container-fluid{
+	padding: 5px;
+}
 
 /*IT公司*/
 .jumbotron{
@@ -167,6 +170,24 @@ blockquote{
 }
 .company .scroll-1 p:last-child{
 	border-bottom: none;
+}
+
+/*IT之最*/
+.most-table{
+	margin: 10px;
+}
+.most-table th{
+	text-align: center;
+}
+.most-table a{
+	color: #000;
+}
+.most-table tbody>tr>td img{
+	width: 100%;
+}
+.most-table tbody>tr>td>div>p{
+	text-indent: 2em;
+	line-height: 25px;
 }
 /*媒体查询*/
 /*小屏幕*/
