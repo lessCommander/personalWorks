@@ -4,113 +4,109 @@
 	<meta charset="UTF-8">
 	<title>作品目录</title>
 	<style>
-		body, div, ul, li{
+		body{
+			font: 14px/1.5 "Hiragino Sans GB","Hiragino Sans GB W3",'微软雅黑';
+		}
+		body, h1, h2, h3, h4, h5, h6, div, ul, li, p{
 			margin: 0;
 			padding: 0;
-			color: #666;
+			border-radius: 6px;
 		}
 		ul{
 			list-style: none;
 		}
 		a{
 			text-decoration: none;
+			color: #fff;
 		}
 		.container{
-			width: 310px;
-			margin: 50px auto;
+			width: 850px;
+			height: 460px;
+			margin: 20px auto;
+			background-color: #eee;
 		}
-		.container .title .list-title{
-			border-bottom: 1px solid #666;
-			background-color: #fff;
-			color: #666;
+		.content{
+			overflow: hidden;
 		}
-		.container .title .list-title li{
-			display: inline-block;
-			width: 100px;
+		.content>li{
+			width: 200px;
+			height: 410px;
+			background-color: orange;
+			color: #fff;
+			margin: 10px 0px 0px 10px;
+			padding: 5px;
+			float: left;
+			box-sizing: border-box;
 			text-align: center;
-			cursor: pointer;
 		}
-		.container .title .list-title .active{
-			background-color: #666;
-			color: #eee;
+		.content>li:nth-child(1){
+			background-color: #2ECC40;
 		}
-		.container .content{
-			margin-top: 5px;
+		.content>li:nth-child(2){
+			background-color: #00A3CF;
 		}
-		.container .content ul{
-			display: none;
+		.content>li:nth-child(3){
+			background-color: #CF00AC;
 		}
-		.container .content .list-active{
+		.content>li:nth-child(4){
+			height: 200px;
+			background-color: #ff851b;
+		}
+		.content>li:nth-child(4) a{
 			display: block;
-			padding-left: 10px;
+			line-height: 200px;
+			font-size: 20px;
+			font-weight: bold;
 		}
-		.container .content .list-active li{
-			margin-bottom: 5px;
+		.content>li:nth-child(5){
+			height: 200px;
+			background-color: #53B4F9;
 		}
-		.container .content .list-active li a{
-			display: block;
+		.content>li:nth-child(5) h2{
+			line-height: 200px;
 		}
-
+		.container>p{
+			margin: 10px 10px;
+			text-align: right;
+			color: #999;
+		}
 	</style>
-	<script src="jquery-1.12.4.js"></script>
+	<script src="lib/jquery.js"></script>
 	<script>
 		$(function(){
-			var aTitle = $('#list-title').find('li'),
-				aList = $('#content').find('ul');
-
-			for (var i=0, len=aTitle.length; i<len; i++){
-				aTitle.eq(i).on('mouseover', titleClick.bind(this, i));
-			}
-			function titleClick(index, e){
-				for (var i=0; i<len; i++){
-					aTitle.eq(i).removeClass('active');
-					aList.eq(i).removeClass('list-active');
-				}
-				aTitle.eq(index).addClass('active');
-				aList.eq(index).addClass('list-active');
-			}
-
-			$('#content ul').find('li').on('mouseover',function(){
-				$(this).css('background-color', 'gold');
-			}).on('mouseout',function(){
-				$(this).css('background-color', '#fff');
+			var box = {
+				aLi: $('#box>li')
+			};
+			box.aLi.each(function(){
+				$(this).on('mouseover', function(){
+					$(this).animate({'opacity': 0.5}, 300);
+				}).on('mouseout', function(){
+					$(this).stop(true).animate({'opacity': 1}, 300);
+				});
 			});
 		});
 	</script>
 </head>
 <body>
 	<div class="container">
-		<div class="title">
-			<ul id="list-title" class="list-title">
-				<li class="active">原生js</li>
-				<li>jquery</li>
-				<li>bootstrap</li>
-			</ul>
-		</div>
-		<div id="content" class="content">
-			<ul class="list-active">
-				<li><a href="beginner/sidebar.html">1.侧边栏</a></li>
-				<li><a href="beginner/moveDiv.html">2.鼠标拖动Div</a></li>
-				<li><a href="beginner/moveDiv2.html">3.键盘方向键控制Div</a></li>
-				<li><a href="beginner/menu1.html">4.弹性菜单</a></li>
-				<li><a href="beginner/photoWall.html">5.照片墙（IE10+）</a></li>
-				<li><a href="beginner/reply.html">6.发表评论</a></li>
-				<li><a href="beginner/stagger.html">7.隔行变色</a></li>
-				<li><a href="beginner/table.html">8.表格操作</a></li>
-				<li><a href="beginner/slideDiv.html">9.手风琴效果</a></li>
-			</ul>
-			<ul>
-				<li><a href="learner/slide.html">1.幻灯片</a></li>
-				<li><a href="learner/game1.html">2.消除表情小游戏</a></li>
-				<li><a href="learner/circleButtons.html">3.模拟任务栏按钮</a></li>
-				<li><a href="learner/dragPic.html">4.拖拽替换图片位置</a></li>
-				<li><a href="learner/modifyValue.html">5.修改列表中的值</a></li>
-				<li><a href="learner/rndPic.html">6.随机滚动的图片</a></li>
-			</ul>
-			<ul>
-				<li><a href="demo2/index.html">1.响应式网站Demo</a></li>
-			</ul>
-		</div>
+		<ul id="box" class="content">
+			<li>
+				<h2>CSS作品</h2>
+			</li>
+			<li>
+				<h2>javascript作品</h2>
+			</li>
+			<li>
+				<h2>其他框架实例</h2>
+			</li>
+			<li>
+				<a href="#" title="点击查看个人简历">个人简历</a>
+			</li>
+			<li>
+				<h2>QQ:2310975964</h2>
+			</li>
+		</ul>
+		<p>by ls. Email: 2310975964@qq.com</p>
 	</div>
 </body>
 </html>
