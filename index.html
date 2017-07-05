@@ -7,7 +7,7 @@
 		body{
 			font: 14px/1.5 "Hiragino Sans GB","Hiragino Sans GB W3",'微软雅黑';
 		}
-		body, h1, h2, h3, h4, h5, h6, div, ul, li, p{
+		body, h1, h2, h3, h4, h5, h6, div, ul, li, p, ol{
 			margin: 0;
 			padding: 0;
 			border-radius: 6px;
@@ -19,51 +19,80 @@
 			text-decoration: none;
 			color: #fff;
 		}
+		a:hover{
+			text-decoration: underline;
+		}
 		.container{
 			width: 850px;
 			height: 460px;
 			margin: 20px auto;
 			background-color: #eee;
 		}
-		.content{
+		#box{
 			overflow: hidden;
 		}
-		.content>li{
+		#box > li{
 			width: 200px;
 			height: 410px;
 			background-color: orange;
 			color: #fff;
 			margin: 10px 0px 0px 10px;
-			padding: 5px;
 			float: left;
+			position: relative;
 			box-sizing: border-box;
 			text-align: center;
+			overflow: hidden;
+			transition: opacity 500ms;
 		}
-		.content>li:nth-child(1){
+		#box > li > h2{
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			left: 0px;
+			top: 175px;
+		}
+		#box > li:nth-child(1){
 			background-color: #2ECC40;
 		}
-		.content>li:nth-child(2){
+		#box > li:nth-child(2){
 			background-color: #00A3CF;
 		}
-		.content>li:nth-child(3){
+		#box > li:nth-child(3){
 			background-color: #CF00AC;
 		}
-		.content>li:nth-child(4){
+		#box > li:nth-child(4){
 			height: 200px;
 			background-color: #ff851b;
 		}
-		.content>li:nth-child(4) a{
+		#box > li:nth-child(4) a{
 			display: block;
 			line-height: 200px;
 			font-size: 20px;
 			font-weight: bold;
 		}
-		.content>li:nth-child(5){
+		#box > li:nth-child(5){
 			height: 200px;
 			background-color: #53B4F9;
 		}
-		.content>li:nth-child(5) h2{
+		#box > li:nth-child(5) h3{
 			line-height: 200px;
+		}
+		#box > li:hover{
+			opacity: 0.7;
+		}
+		#box > li > ol{
+			text-align: left;
+			margin-top: 20px;
+			margin-left: 30px;
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+		#box > li > ol > li{
+			position: absolute;
+			top: 0;
+			left: 0px;
+			opacity: 0;
 		}
 		.container>p{
 			margin: 10px 10px;
@@ -74,36 +103,85 @@
 	<script src="lib/jquery.js"></script>
 	<script>
 		$(function(){
-			var box = {
-				aLi: $('#box>li')
-			};
-			box.aLi.each(function(){
-				$(this).on('mouseover', function(){
-					$(this).animate({'opacity': 0.5}, 300);
-				}).on('mouseout', function(){
-					$(this).stop(true).animate({'opacity': 1}, 300);
+			var $oLi = $('#box>li'),
+				$oProduct = $oLi.find('ol');
+
+			$oProduct.each(function(){
+				$(this).children().each(function(inx){
+					$(this).css({'top': 50 + inx * 30 + 'px', 'left': '200px'});
 				});
 			});
+
+			$oLi.on('mouseenter', function(){
+				$(this).find('h2').stop(true).animate({'top': '20px'});
+				move1($(this).find('li'), true);
+			}).on('mouseleave', function(){
+				$(this).find('h2').stop(true).animate({'top': '175px'});
+				move1($(this).find('li'), false);
+			});
+
+			function move1(nowObj, b){
+				for(var i = 0; i < nowObj.length; i++){
+					clearTimeout(nowObj[i].timer);
+					if(b === true){
+						nowObj[i].timer = setTimeout((function(x){
+							return function(){
+								nowObj.eq(x).animate({'left': 0, 'opacity': 1});
+							};
+						})(i), i * 50);
+					}else{
+						nowObj.eq(i).stop(true).css({'left': '200px', 'opacity': 0});
+					}
+				}
+			}
 		});
 	</script>
 </head>
 <body>
 	<div class="container">
-		<ul id="box" class="content">
+		<ul id="box">
 			<li>
 				<h2>CSS作品</h2>
+				<ol>
+					<li><a href="beginner/photoWall.html">照片墙</a></li>
+					<li><a href="#">占位符2</a></li>
+					<li><a href="#">占位符3</a></li>
+					<li><a href="#">占位符4</a></li>
+					<li><a href="#">占位符5</a></li>
+					<li><a href="#">占位符6</a></li>
+					<li><a href="#">占位符7</a></li>
+				</ol>
 			</li>
 			<li>
 				<h2>javascript作品</h2>
+				<ol>
+					<li><a href="#">占位符1</a></li>
+					<li><a href="#">占位符2</a></li>
+					<li><a href="#">占位符3</a></li>
+					<li><a href="#">占位符4</a></li>
+					<li><a href="#">占位符5</a></li>
+					<li><a href="#">占位符6</a></li>
+					<li><a href="#">占位符7</a></li>
+				</ol>
 			</li>
 			<li>
 				<h2>其他框架实例</h2>
+				<ol>
+					<li><a href="demo2/index.html">bootstrap响应式网站</a></li>
+					<li><a href="#">占位符1</a></li>
+					<li><a href="#">占位符2</a></li>
+					<li><a href="#">占位符3</a></li>
+					<li><a href="#">占位符4</a></li>
+					<li><a href="#">占位符5</a></li>
+					<li><a href="#">占位符6</a></li>
+					<li><a href="#">占位符7</a></li>
+				</ol>
 			</li>
 			<li>
 				<a href="#" title="点击查看个人简历">个人简历</a>
 			</li>
 			<li>
-				<h2>QQ:2310975964</h2>
+				<h3>QQ:2310975964</h3>
 			</li>
 		</ul>
 		<p>by ls. Email: 2310975964@qq.com</p>
