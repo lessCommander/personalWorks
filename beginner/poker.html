@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>翻牌</title>
+	<style>
+		p, ul, li{
+			margin: 0;
+			padding: 0;
+		}
+		p{
+			font-family: '微软雅黑';
+			color: #666;
+			text-align: center;
+			width: 600px;
+			margin: 0 auto;
+			margin-top: 20px;
+			background-color: #eee;
+			border: 1px solid #777;
+			border-radius: 5px;
+		}
+		ul{
+			list-style: none;
+			width: 841px;
+			height: 266px;
+			margin: 0 auto;
+			margin-top: 10px;
+		}
+		ul > li{
+			float: left;
+			position: relative;
+			width: 200px;
+			height: 262px;
+			        transform-style: preserve-3d;
+			   -moz-transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+			        perspective: 500;
+			   -moz-perspective: 500;
+			-webkit-perspective: 500;
+		}
+		ul > li + li{
+			margin-left: 10px;
+		}
+		ul > li > img{
+			position: absolute;
+			left: 0;
+			right: 0;
+			        backface-visibility: hidden;
+			   -moz-backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			       transition: transform 1s;
+			  -moz-transition: transform 1s;
+			-webkittransition: transform 1s;
+		}
+		ul > li > img.face{
+			        transform: rotateY(-180deg);
+			   -moz-transform: rotateY(-180deg);
+			-webkit-transform: rotateY(-180deg);
+		}
+		ul > li:hover > img.back{
+					transform: rotateY(180deg);
+			   -moz-transform: rotateY(180deg);
+			-webkit-transform: rotateY(180deg);
+		}
+		ul > li:hover > img.face{
+					transform: rotateY(0deg);
+			   -moz-transform: rotateY(0deg);
+			-webkit-transform: rotateY(0deg);
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>将鼠标移动到卡片上试试~~</p>
+		<ul>
+			<li>
+				<img class="back" src="img/poker0.gif" alt="">
+				<img class="face" src="img/poker1.gif" alt="">
+			</li>
+			<li>
+				<img class="back" src="img/poker0.gif" alt="">
+				<img class="face" src="img/poker2.gif" alt="">
+			</li>
+			<li>
+				<img class="back" src="img/poker0.gif" alt="">
+				<img class="face" src="img/poker3.gif" alt="">
+			</li>
+			<li>
+				<img class="back" src="img/poker0.gif" alt="">
+				<img class="face" src="img/poker4.gif" alt="">
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
