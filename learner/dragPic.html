@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>拖拽图片替换位置</title>
+	<title>拖拽数字方块交换位置</title>
 	<style>
-		body,div,ul,li{
+		body,div,ul,li,h3{
 			margin: 0;
 			padding: 0;
 		}
 		body{
 			-moz-user-select: none;
 		}
+		h3{
+			margin: 0 auto;
+			margin-top: 10px;
+			font-family: '微软雅黑';
+			color: purple;
+			text-align: center;
+		}
 		#container{
 			width: 340px;
 			height: 340px;
-			background-color: #ccc;
+			background-color: #ecf;
 			margin: 20px auto;
 		}
 		#pics{
@@ -24,10 +31,11 @@
 		#pics li{
 			width: 100px;
 			height: 100px;
-			background-color: purple;
+			background-color: #50f;
 			color: #eee;
 			margin-left: 10px;
 			margin-top: 10px;
+			box-sizing: border-box;
 			float: left;
 			text-align: center;
 			font-size: 50px;
@@ -36,7 +44,6 @@
 		}
 		#pics li.touch{
 			border: 3px solid yellow;
-			box-sizing: border-box;
 		}
 	</style>
 	<script src="../lib/jquery.js"></script>
@@ -44,10 +51,10 @@
 		$(function(){
 			var $doc = $(document),
 				$aPic = $('#pics').find('li'),
-				iLen = $aPic.length;
-			var aPos = [];
-			var n, e, iX, iY;
-			var zInx = 1;
+				iLen = $aPic.length,
+				aPos = [],
+				n, e, iX, iY,
+				zInx = 1;
 
 			//布局转换
 			for(var i = 0; i < iLen; i++){
@@ -92,8 +99,8 @@
 			}
 
 			function fnUp(ev){
-				var oPos1, oPos2;
-				var n = nearest(this);
+				var oPos1, oPos2,
+					n = nearest(this);
 				if(n !== -1){
 					$aPic.eq(n).css('zIndex', ++zInx);
 					$(this).css('zIndex', ++zInx);
@@ -171,5 +178,6 @@
 			<li>9</li>
 		</ul>
 	</div>
+	<h3>拖拽带数字的方块，移动到其它方块上，可以调换位置</h3>
 </body>
 </html>
