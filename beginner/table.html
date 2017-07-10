@@ -4,16 +4,26 @@
 	<meta charset="UTF-8">
 	<title>表格操作</title>
 	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		a{
+			text-decoration: none;
+			color: tomato;
+		}
 		.tbox{
 			width: 400px;
 			background-color: #eee;
 			margin: 10px auto;
+			padding: 5px;
+			text-align: center;
 		}
 		#tab1{
-			border:1px solid black;
+			border:1px solid #000;
 			width:400px;
 		}
-		#tab1 td{
+		#tab1 td, #tab1 thead tr th{
 			border: 1px solid #000;
 		}
 	</style>
@@ -23,19 +33,38 @@
 				var oTxt = document.getElementById('txt1'),
 					oAdd = document.getElementById('add'),
 					oTable = document.getElementById('tab1'),
-					iInx = oTable.tBodies[0].rows.length;
+					iInx = oTable.tBodies[0].rows.length,
+					oAA = oTable.getElementsByTagName('a');
+
+				//删除行
+				var fnDel = function(){
+					var oTarget = arguments[0].srcElement;
+					oTarget.onclick = null;
+					if (oTable.tBodies[0].children.length !== 0){
+						oTable.tBodies[0].removeChild(oTarget.parentNode.parentNode);
+					}else if (typeof oTable.tHead === 'object'){
+						oTable.tHead.removeChild(oTarget.parentNode.parentNode);
+					}
+					oTxt.focus();
+				};
+
+				oTxt.focus();
 
 				oAdd.onclick = fnAdd;
 
+				for (var i = 0; i < oAA.length; i++){
+					oAA[i].onclick =  fnDel;
+				}
+
+				//添加行
 				function fnAdd(){
 					var str = oTxt.value.replace(/^\s*|\s*$/, ''),
 						oTr = null,
 						oIndex = null,
 						oName = null,
-						oTd = null,
-						oA = null;
-
-					var iRow = oTable.tBodies[0].rows.length;
+						oConfig = null,
+						oA = null,
+						iRow = oTable.tBodies[0].rows.length;
 
 					if(str){
 						oTr = oTable.insertRow(++iRow);
@@ -49,19 +78,16 @@
 						oA = document.createElement('a');
 						oA.innerHTML = 'Delete';
 						oA.href = '#';
-						oA.onclick = function(){
-							oA.onclick = null;
-							oTable.tBodies[0].removeChild(this.parentNode.parentNode);
-							oTxt.focus();
-						};
-						oTd = oTr.insertCell(2);
-						oTd.appendChild(oA);
+						oA.onclick = fnDel;
+						oConfig = oTr.insertCell(2);
+						oConfig.appendChild(oA);
 					}
 
 					oTxt.value = '';
 					oTxt.focus();
 				}
-				oTxt.focus();
+
+				//阻止默认拖动
 				document.ondragstart = function(){
 					return false;
 				};
@@ -72,46 +98,46 @@
 <body>
 	<div class="tbox">
 		<input id="txt1" type="text" autofocus />
-		<input id="add" type="button" value="添加" />
+		<input id="add" type="button" value="Add" />
 		<table id="tab1">
 			<caption>Color Table Caption</caption>
 			<thead>
 				<tr>
-					<td>ID</td>
-					<td>Name</td>
-					<td>Config</td>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Config</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>1</td>
 					<td>Red</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 				<tr>
 					<td>2</td>
 					<td>Blue</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 				<tr>
 					<td>3</td>
 					<td>Purple</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 				<tr>
 					<td>4</td>
 					<td>Green</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 				<tr>
 					<td>5</td>
 					<td>Grey</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 				<tr>
 					<td>6</td>
 					<td>Tomato</td>
-					<td></td>
+					<td><a href="#">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
