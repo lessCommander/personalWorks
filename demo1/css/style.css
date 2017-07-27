@@ -60,12 +60,15 @@ a:hover{
 	margin: 0 auto;
 	border-bottom: 3px solid orange;
 }
-#product .pro_title li{
+#product .pro_title > li{
 	width: 100px;
 	text-align: center;
 	line-height: 40px;
 	cursor: pointer;
 	display: inline-block;
+}
+#product .pro_title > li:hover > a{
+	color: #eee;
 }
 #product li.pro_title_active{
 	background-color: orange;
@@ -125,15 +128,15 @@ a:hover{
 	background-color: #eee;
 	margin: 0 auto;
 	padding: 20px 0px;
+	text-align: center;
 }
 #footer .center dl{
 	display: inline-block;
-	border-left: 1px solid #aaa;
-	padding: 20px 30px;
-	margin-left: 100px;
+	padding: 20px 100px;
+	text-align: left;
 }
-#footer .center dl:first-child{
-	border-left: none;
+#footer .center dl + dl{
+	border-left: 1px solid #aaa;
 }
 #footer .center dl dt{
 	font-size: 26px;
