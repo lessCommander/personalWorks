@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		body, div, ul, li{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+		}
+		ul{
+			list-style: none;
+		}
+		.carousel{
+			margin: 0 auto;
+			margin-top: 10px;
+			width: 352px;
+			height: 252px;
+			text-align: center;
+		}
+		.container{
+			width: 350px;
+			height: 200px;
+			border: 1px solid #000;
+			overflow: hidden;
+		}
+		.container > ul{
+			width: 2800px;
+			height: 200px;
+			background-color: #eee;
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+		.container > ul > li{
+			width: 350px;
+			height: 200px;
+			float: left;
+		}
+		.container > ul > li > div{
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background-color: #000;
+			width: 350px;
+			opacity: 0.7;
+			color: #eee;
+			font-size: 14px;
+			font-weight: bold;
+			opacity: 1;
+		}
+		.wrap{
+			height: 20px;
+			text-align: center;
+		}
+		.wrap > ul{
+			display: inline-block;
+		}
+		.wrap > ul > li{
+			float: left;
+			background-color: #bbb;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			margin: 0 5px;
+		}
+		.wrap > ul > li.wrap_active{
+			background-color: #d50;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var i,
+				iNow = 0,
+				iZIndex = 1,
+				iTimer,
+				aPos = [],
+				iLi1 = document.querySelectorAll('.container li'),
+				iLi2 = document.querySelectorAll('.wrap li');
+
+			// 布局转换
+			for(i = 0; i < iLi1.length; i++){
+				aPos[i] = iLi1[i].offsetLeft;
+			}
+
+			for(i = 0; i < iLi1.length; i++){
+				iLi1[i].style.position = 'absolute';
+				iLi1[i].style.left = aPos[i] + 'px';
+				iLi1[i].style.top = 0;
+			}
+
+			//自动轮播开始
+			run();
+			//自动轮播
+			function run(){
+				clearInterval(iTimer);
+				iTimer = setInterval(function(){
+					i = iNow + 1;
+					if(i == iLi2.length){
+						i = 0;
+					}
+					iLi2[iNow].className = '';
+					iLi2[i].className = 'wrap_active';
+					iLi1[i].style.left = '350px';
+					iLi1[i].style.zIndex = iZIndex++;
+					startMoveEaseOut(iLi1[i], {left: 0});
+					iNow = i;
+				}, 2000);
+			}
+
+			//点击切换图片事件
+			for(i = 0; i < iLi2.length; i++){
+				(function(ii){
+					iLi2[ii].onmouseenter = function(){
+						clearInterval(iTimer);
+						iLi2[iNow].className = '';
+						this.className = 'wrap_active';
+						if(ii < iNow){
+							iLi1[ii].style.left = '-350px';
+						}else if(ii > iNow){
+							iLi1[ii].style.left = '350px';
+						}
+						iLi1[ii].style.zIndex = iZIndex++;
+						startMoveEaseOut(iLi1[ii], {left: 0});
+						iNow = ii;
+					};
+					iLi2[ii].onmouseleave = function(){
+						run();
+					};
+				}(i));
+			}
+		};
+
+		//缓冲运动框架
+		function startMoveEaseOut(obj,oJson,fn){
+			clearInterval(obj.iTimer);
+			obj.iTimer = setInterval(function(){
+				var bStop = true;
+				for(var attr in oJson){
+					//1.获取属性
+					var iCur = 0;
+					if (attr=='opacity'){
+						iCur = parseInt(parseFloat(getStyle(obj,attr)) * 100);
+					}else{
+						iCur = parseInt(getStyle(obj,attr));
+					}
+
+					//2.计算速度
+					var iSpeed = (oJson[attr] - iCur)/8;
+					iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+					//3.判断何时停止
+					if(iCur!=oJson[attr]){
+						bStop = false;
+
+						if (attr=='opacity'){
+							obj.style.opacity = (iCur + iSpeed)/100;
+							obj.style.filter = 'alpha(opacity=' + (iCur + iSpeed) + ')';
+						}else{
+							obj.style[attr] = iCur + iSpeed + 'px';
+						}
+					}
+				}
+				if (bStop){
+					clearInterval(obj.iTimer);
+					fn && fn();
+				}
+			},30);
+		};
+
+		//获取当前样式
+		function getStyle(obj,attr){
+			if (window.getComputedStyle){
+				return window.getComputedStyle(obj,false)[attr];
+			}else{
+				return obj.currentStyle[attr];
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="carousel">
+		<div class="container">
+			<ul>
+				<li><div>自废两核为散热!AMD旗舰Ryzen 1950X开盖</div><img src="img/zx1.jpg" alt=""></li>
+				<li><div>近期挖矿有点难？教你13卡暴力挖矿！</div><img src="img/zx2.jpg" alt=""></li>
+				<li><div>史上最恐怖挖矿方式 单矿机12卡组装攻略</div><img src="img/zx3.jpg" alt=""></li>
+				<li><div>这电源颜值这么炫，是要逼我用裸平台了？</div><img src="img/zx4.jpg" alt=""></li>
+				<li><div>60年发展史被SSD 6年颠覆!它叫机械硬盘</div><img src="img/zx5.jpg" alt=""></li>
+				<li><div>光效无死角:这款机箱竟然三面全钢化玻璃侧透</div><img src="img/zx6.jpg" alt=""></li>
+				<li><div>携手华硕 PConline带你玩转CJ</div><img src="img/zx7.jpg" alt=""></li>
+				<li><div>PCI-E M.2 SSD：性能如此优越有什么理由不推荐呢！</div><img src="img/zx8.jpg" alt=""></li>
+			</ul>
+		</div>
+		<div class="wrap">
+			<ul>
+				<li class="wrap_active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
