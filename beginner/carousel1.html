@@ -77,6 +77,7 @@
 				iTimer,
 				aPos = [],
 				iLi1 = document.querySelectorAll('.container li'),
+				w = iLi1[0].offsetWidth,
 				iLi2 = document.querySelectorAll('.wrap li');
 
 			// 布局转换
@@ -90,45 +91,49 @@
 				iLi1[i].style.top = 0;
 			}
 
-			//自动轮播开始
-			run();
-			//自动轮播
-			function run(){
-				clearInterval(iTimer);
-				iTimer = setInterval(function(){
-					i = iNow + 1;
-					if(i == iLi2.length){
-						i = 0;
-					}
-					iLi2[iNow].className = '';
-					iLi2[i].className = 'wrap_active';
-					iLi1[i].style.left = '350px';
-					iLi1[i].style.zIndex = iZIndex++;
-					startMoveEaseOut(iLi1[i], {left: 0});
-					iNow = i;
-				}, 2000);
+			//手动切换图片事件
+			var mySlide = function(j){
+				return function(){
+					clearInterval(iTimer);
+					slide(j);
+				};
+			};
+			for(i = 0; i < iLi2.length; i++){
+				iLi2[i].onmouseenter = mySlide(i);
+				iLi2[i].onmouseleave = function(){
+					run();
+				};
 			}
 
-			//点击切换图片事件
-			for(i = 0; i < iLi2.length; i++){
-				(function(ii){
-					iLi2[ii].onmouseenter = function(){
-						clearInterval(iTimer);
-						iLi2[iNow].className = '';
-						this.className = 'wrap_active';
-						if(ii < iNow){
-							iLi1[ii].style.left = '-350px';
-						}else if(ii > iNow){
-							iLi1[ii].style.left = '350px';
-						}
-						iLi1[ii].style.zIndex = iZIndex++;
-						startMoveEaseOut(iLi1[ii], {left: 0});
-						iNow = ii;
-					};
-					iLi2[ii].onmouseleave = function(){
-						run();
-					};
-				}(i));
+			//自动切换图片
+			run();
+			function run(){
+				clearInterval(iTimer);
+				iTimer = setInterval(slide, 2000);
+			}
+			
+			//轮播
+			function slide(x){
+				if (typeof x === 'number'){
+					if (x == iNow){
+						return false;
+					}
+				}else{
+					x = iNow + 1;
+				}
+				
+				if (x == iLi2.length){
+					x = 0;
+				}
+
+				iLi2[iNow].className = '';
+				iLi2[x].className = 'wrap_active';
+
+				iLi1[x].style.left = w + 'px';
+				iLi1[x].style.zIndex = iZIndex++;
+
+				startMoveEaseOut(iLi1[x], {left: 0});
+				iNow = x;
 			}
 		};
 
