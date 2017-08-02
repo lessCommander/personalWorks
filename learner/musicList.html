@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度音乐-全选操作</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+			color: #666;
+		}
+		#songs{
+			width: 300px;
+			border: 1px solid #000;
+			margin: 0 auto;
+			margin-top: 50px;
+		}
+		#songs > li{
+			list-style: none;
+			background-color: #eee;
+			height: 25px;
+		}
+		#songs > li > span{
+			line-height: 25px;
+		}
+		#box{
+			width: 300px;
+			height: 30px;
+			background-color: #ddd;
+			margin: 0 auto;
+			border: 1px solid #000;
+			border-top-width: 0px;
+		}
+		#box > span{
+			line-height: 30px;
+		}
+		input{
+			margin-left: 5px;
+		}
+	</style>
+	<script src="../lib/jquery.js"></script>
+	<script>
+		$(function(){
+			var $aLi = $('#songs').find('li'),
+				iLilen = $aLi.length;
+				$oBox = $('#box'),
+				$oAllCheck = $('#all'),
+				aColor = ['#eee','white'],
+				iColorLen = aColor.length,
+				sColor1 = 'pink',
+				sColor2 = 'orange',
+				sColor2x = '#ddd';
+
+			//单行事件
+			var i = 0, iCur = 0;
+			for (i=0; i < iLilen; i++){
+				$aLi.eq(i)
+					.css('background-color',aColor[i%iColorLen])
+					.on('mouseenter', function(){
+						$(this).css('background-color', sColor1);
+					})
+					.on('mouseleave', (function(i){
+						return function(){
+							var b = $(this).find('input').eq(0).prop('checked');
+							if (b){
+								$(this).css('background-color',sColor1);
+							}else{
+								$(this).css('background-color',aColor[i%iColorLen]);
+							}
+						}
+					})(i))
+					.on('click', function(){
+						var b = !($(this).find('input').eq(0).prop('checked'));
+						$(this).find('input').eq(0).prop('checked', b);
+						clickSingle();
+					});
+
+				$aLi.eq(i).find('input').eq(0).on('click', function(){
+					var b = !($(this).prop('checked'));
+					$(this).prop('checked', b);
+					clickSingle();
+				});
+			}
+
+			//全选事件
+			$oBox
+				.on('mouseenter',function(){
+					$oBox.css('background-color',sColor2);
+				})
+				.on('mouseleave', function(){
+					var b = $oAllCheck.prop('checked');
+					if(b){
+						$(this).css('background-color', sColor2);
+					}else{
+						$oBox.css('background-color', sColor2x);
+					}
+				})
+				.on('click',clickAllCheck);
+
+			$oAllCheck.on('click', clickAllCheck);
+
+			//全选
+			function clickAllCheck(){
+				var b = !($oAllCheck.prop('checked'));
+				$oAllCheck.prop('checked', b);
+				if(b){
+					$oBox.css('background-color', sColor2);
+				}
+				for (var i=0; i<iLilen; i++){
+					$aLi.eq(i).find('input').eq(0).prop('checked',b);
+				}
+				checkAllCheck();
+			}
+
+			//单个
+			function clickSingle(){
+				var b,
+					bAll = true;
+				for (var i = 0; i < iLilen; i++){
+					b = $aLi.eq(i).find('input').eq(0).prop('checked');
+					if (b){
+						bAll = true;
+					}else{
+						$oAllCheck.prop('checked', false);
+						bAll = false;
+						break;
+					}
+				}
+				if (bAll){
+					$oAllCheck.prop('checked', true);
+					$oBox.css('background-color', sColor2);
+				}else{
+					$oBox.css('background-color', sColor2x);
+				}
+			}
+
+			//遍历选中状态
+			function checkAllCheck(){
+				for (var i=0; i<iLilen; i++){
+					var oInp = $aLi.eq(i).find('input').eq(0),
+						b = oInp.prop('checked');
+
+					if (b){
+						$aLi.eq(i).css('background-color',sColor1);
+					}else{
+						$aLi.eq(i).css('background-color',aColor[i%iColorLen]);
+					}
+				}
+			}
+		});
+	</script>
+</head>
+<body>
+	<ul id='songs'>
+		<li>
+			<input type="checkbox">
+			<span>素雪风华</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>告白气球</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>生死相随</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>逆流成河</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>海阔天空</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>勉为其难</span>
+		</li>
+	</ul>
+	<div id='box'>
+		<input id="all" type="checkbox">
+		<span>全选</span>
+	</div>
+</body>
+</html>
