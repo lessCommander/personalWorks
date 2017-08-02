@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>百度音乐-全选操作</title>
+	<title>带选择框的列表</title>
 	<style>
 		*{
 			margin: 0;
@@ -10,11 +10,14 @@
 			font-family: '微软雅黑';
 			color: #666;
 		}
+		#title{
+			margin: 10px auto;
+			text-align: center;
+		}
 		#songs{
 			width: 300px;
 			border: 1px solid #000;
 			margin: 0 auto;
-			margin-top: 50px;
 		}
 		#songs > li{
 			list-style: none;
@@ -152,6 +155,7 @@
 	</script>
 </head>
 <body>
+	<div id='title'>带选择框的列表</div>
 	<ul id='songs'>
 		<li>
 			<input type="checkbox">
