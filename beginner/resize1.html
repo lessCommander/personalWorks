@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖动控件大小</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+		}
+		#title, #spy{
+			margin-top: 20px;
+			text-align: center;
+		}
+		#div0{
+			width: 200px;
+			height: 200px;
+			background-color: #c9e;
+			border: 1px solid #000;
+			position:absolute;
+			left: 300px;
+			top: 200px;
+		}
+		#div1, #div2, #div3, #div4{
+			width: 10px;
+			height: 10px;
+			background-color: #666;
+			position: absolute;
+		}
+		#div1{
+			left: 0;
+			top: 0;
+			cursor:nw-resize;
+		}
+		#div2{
+			right: 0;
+			top: 0;
+			cursor:ne-resize;
+		}
+		#div3{
+			left: 0;
+			bottom: 0;
+			cursor:sw-resize;
+		}
+		#div4{
+			right: 0;
+			bottom: 0;
+			cursor:se-resize;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oDiv0 = getId('div0'),
+				oDiv1 = getId('div1'),
+				oDiv2 = getId('div2'),
+				oDiv3 = getId('div3'),
+				oDiv4 = getId('div4'),
+				oSpyW = getId('wd'),
+				oSpyH = getId('ht'),
+				min = 100,
+				max = 300;
+			
+			oDiv1.onmousedown = fnDown;
+			oDiv2.onmousedown = fnDown;
+			oDiv3.onmousedown = fnDown;
+			oDiv4.onmousedown = fnDown;
+
+			function fnDown(event){
+				var e = event || window.event,
+					mouseX = e.clientX,
+					mouseY = e.clientY,
+					left0 = oDiv0.offsetLeft,
+					top0 = oDiv0.offsetTop,
+					width0 = oDiv0.offsetWidth,
+					height0 = oDiv0.offsetHeight,
+					dir = e.target ? e.target.id : e.srcElement.id;
+
+				document.onmousemove = function(event){
+					var e = event || window.event,
+						l, t, w, h;
+
+					if (dir === 'div1' || dir === 'div3'){
+						w = -(e.clientX - mouseX) + width0;
+						l = e.clientX - mouseX + left0;
+					}else if(dir === 'div2' || dir === 'div4'){
+						w = e.clientX - mouseX + width0;
+					}
+
+					if (dir === 'div1' || dir === 'div2'){
+						h = -(e.clientY - mouseY) + height0;
+						t = e.clientY - mouseY + top0;
+					}else if(dir === 'div3' || dir === 'div4'){
+						h = e.clientY - mouseY + height0;
+					}
+
+					if(w < min){
+						w = min;
+					}else if(w > max){
+						w = max;
+					}
+
+					if(h < min){
+						h = min;
+					}else if(h > max){
+						h = max;
+					}
+
+					oDiv0.style.width = w + 'px';
+					oDiv0.style.height = h + 'px';
+					if (dir === 'div1' || dir === 'div3'){
+						if(w > min && w < max){
+							oDiv0.style.left = l + 'px';
+						}
+					}
+					if (dir === 'div1' || dir === 'div2'){
+						if(h > min && h < max){
+							oDiv0.style.top = t + 'px';
+						}
+					}
+
+					oSpyW.innerHTML = w;
+					oSpyH.innerHTML = h;
+				};
+
+				document.onmouseup = function(){
+					document.onmousemove = null;
+					document.onmouseup = null;
+				};
+
+				return false;
+			};
+		};
+
+		function getId(str){
+			return document.getElementById(str);
+		}
+	</script>
+</head>
+<body>
+	<div id="title">将鼠标移动到四个角的黑色小方框内，可以拖动改变大方块的大小</div>
+	<div id="spy">
+		宽：<span id="wd">200</span>
+		高：<span id="ht">200</span>
+	</div>
+	<div id="div0">
+		<div id="div1"></div>
+		<div id="div2"></div>
+		<div id="div3"></div>
+		<div id="div4"></div>
+	</div>
+</body>
+</html>

@@ -99,10 +99,10 @@
 				};
 			};
 			for(i = 0; i < iLi2.length; i++){
+				iLi1[i].onmouseenter = mySlide(i);
+				iLi1[i].onmouseleave = run;
 				iLi2[i].onmouseenter = mySlide(i);
-				iLi2[i].onmouseleave = function(){
-					run();
-				};
+				iLi2[i].onmouseleave = run;
 			}
 
 			//自动切换图片
