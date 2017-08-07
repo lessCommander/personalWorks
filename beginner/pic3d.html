@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D翻转图片</title>
+	<style>
+		#wrap{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin: 50px auto;
+			padding: 100px;
+		}
+		#wrap > ul{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			position: relative;
+			transform-style: preserve-3d;
+			perspective: 800px;
+			transition: all 2s;
+		}
+		#wrap > ul > li{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			line-height: 100px;
+			text-align: center;
+			font-size: 50px;
+			color: #999;
+		}
+		#wrap > ul > li:nth-of-type(1){
+			background-color: tomato;
+			top: -100px;
+			left: 0;
+			transform-origin: bottom;
+			transform: rotateX(90deg);
+		}
+		#wrap > ul > li:nth-of-type(2){
+			background-color: skyblue;
+			top: 0;
+			left: -100px;
+			transform-origin: right;
+			transform: rotateY(-90deg);
+		}
+		#wrap > ul > li:nth-of-type(3){
+			background-color: orange;
+			top: 0;
+			left: 100px;
+			transform-origin: left;
+			transform: rotateY(90deg);
+		}
+		#wrap > ul > li:nth-of-type(4){
+			background-color: pink;
+			top: 100px;
+			left: 0;
+			transform-origin: top;
+			transform: rotateX(-90deg);
+		}
+		#wrap > ul > li:nth-of-type(5){
+			background-color: green;
+			top: 0;
+			left: 0;
+			transform: translateZ(-100px);
+		}
+		#wrap > ul > li:nth-of-type(6){
+			background-color: yellow;
+			top: 0;
+			left: 0;
+		}
+		#wrap:hover ul{
+			transform: rotateX(275deg);
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+	</div>
+</body>
+</html>
