@@ -132,7 +132,7 @@
 				n = oBox.offsetWidth / 25;
 
 			for(i = 0; i < n; i++){
-				sHtml += '<ul><li>1</li><li>2</li><li>3</li><li>4</li></ul>'
+				sHtml += '<ul ' + 'style="transition: all 1s ease ' + i * 40 + 'ms;"' + '><li>1</li><li>2</li><li>3</li><li>4</li></ul>'
 			}
 			oBox.innerHTML = sHtml;
 		};
@@ -143,14 +143,7 @@
 	</script>
 </head>
 <body>
-	<div id="box">
-		<ul>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-		</ul>
-	</div>
+	<div id="box"></div>
 	<div id="wrap">
 		<ul>
 			<li>1</li>
