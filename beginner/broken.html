@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>破碎图片翻转</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+			color: #666;
+		}
+		a{
+			text-decoration: none;
+		}
+		a:hover{
+			opacity: 1;
+		}
+		.tooltip{
+			text-align: center;
+			margin-top: 10px;
+		}
+		.container{
+			width: 900px;
+			height: 450px;
+			border: 1px solid #000;
+			margin: 10px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.nav{
+			display: block;
+			width: 75px;
+			height: 500px;
+			text-align: center;
+			font-size: 100px;
+			line-height: 450px;
+			position: absolute;
+			top: 0;
+			background-color: #ccc;
+			opacity: 0.5;
+			transition: opacity 500ms;
+		}
+		.nav.prev{
+			left: 0;
+		}
+		.nav.next{
+			right: 0;
+		}
+		.box{
+			width: 750px;
+			height: 450px;
+			position: absolute;
+			top: 0;
+			left: 75px;
+		}
+		.box > ul{
+			width: 750px;
+			height: 450px;
+			list-style: none;
+		}
+		.box > ul > li{
+			width: 48px;
+			height: 48px;
+			border: 1px solid rgba(0, 0, 0, 1);
+			float: left;
+			background-color: gold;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oUls = document.querySelectorAll('.box > ul'),
+				oPrev = document.querySelector('.prev'),
+				oNext = document.querySelector('.next'),
+				iRowNum = oUls[0].offsetHeight / oUls[0].children[0].offsetHeight,
+				iColNum = oUls[0].offsetWidth / oUls[0].children[0].offsetWidth,
+				aLi = [],
+				iNow = 0;
+			var iColor = ['red', 'blue', 'yellow', 'gold', 'pink'],
+				iNow2 = 0;
+
+			for (var i = 0; i < oUls.length; i++){
+				aLi.push(setXY(oUls[i].children, iRowNum, iColNum));
+			}
+
+			oPrev.onclick = function(){
+				fnBroken(aLi[iNow], 0, 0, 1, function(){
+					this.style.backgroundColor = 'orange';
+				});
+			};
+
+			oNext.onclick = function(){
+				iNow2++;
+				fnBroken(aLi[iNow], iRowNum-1, iColNum-1, -1, function(){
+					this.style.backgroundColor = iColor[iNow2];
+				});
+			};
+		};
+
+		//设置行、列
+		function setXY(obj, iR, iC){
+			var arr1 = [];
+			for (var i = 0; i < iR; i++){
+				var arr2 = [];
+				for (var j = 0; j < iC; j++){
+					obj[i * iC + j].xIndex = j;
+					obj[i * iC + j].yIndex = i;
+					arr2.push(obj[i * iC + j]);
+				}
+				arr1.push(arr2);
+			}
+			return arr1;
+		}
+
+		//逐个翻转
+		var timer = null;
+		function fnBroken(arr, x, y, iSet, fn){
+			if (iSet === -1){
+				if (x <= -1 && y <= 0){
+					return;
+				}else if (x <= -1){
+					x = 8;
+					y--;
+				}
+			}else if(iSet === 1){
+				if (x >= 9 && y >= 14){
+					return;
+				}else if (x >= 9){
+					x = 0;
+					y++;
+				}
+			}
+			if (fn){
+				fn.call(arr[x][y]);
+				clearTimeout(timer);
+				timer = setTimeout(function(){
+					fnBroken(arr, x + iSet, y, iSet, fn);
+				}, 10);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="tooltip">点击左右箭头图片跳转</div>
+	<div class="container">
+		<a href="#" class="nav prev">&lsaquo;</a>
+		<a href="#" class="nav next">&rsaquo;</a>
+		<div class="box">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
