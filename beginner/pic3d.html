@@ -4,6 +4,24 @@
 	<meta charset="UTF-8">
 	<title>3D翻转图片</title>
 	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+		}
+		a{
+			text-decoration: none;
+			color: #666;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+		.btns{
+			text-align: center;
+		}
+		.btns>a{
+			margin: 0px 10px;
+		}
 		#box{
 			width: 500px;
 			height: 200px;
@@ -18,10 +36,15 @@
 			margin: 0;
 			float: left;
 			position: relative;
-			transform-style: preserve-3d;
+					transform-style: preserve-3d;
+				-ms-transform-style: preserve-3d;
+			   -moz-transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+					transform: translateZ(100px);
+				-ms-transform: translateZ(100px);
+			   -moz-transform: translateZ(100px);
+			-webkit-transform: translateZ(100px);
 			/*perspective: 800px;*/
-			/*transition: all 1s;*/
-			transform-origin: bottom;
 		}
 		#box > ul > li{
 			width: 25px;
@@ -37,122 +60,81 @@
 		}
 		#box > ul > li:nth-of-type(2){
 			background-color: orange;
-			transform-origin: top;
-			transform: translateZ(-200px) rotateX(90deg);
+					transform-origin: top;
+				-ms-transform-origin: top;
+			   -moz-transform-origin: top;
+			-webkit-transform-origin: top;
+					transform: translateZ(-100px) rotateX(90deg);
+				-ms-transform: translateZ(-100px) rotateX(90deg);
+			   -moz-transform: translateZ(-100px) rotateX(90deg);
+			-webkit-transform: translateZ(-100px) rotateX(90deg);
 		}
 		#box > ul > li:nth-of-type(3){
 			background-color: green;
-			transform: translateZ(-200px) rotateX(180deg);
+					transform: translateZ(-100px) rotateX(180deg);
+				-ms-transform: translateZ(-100px) rotateX(180deg);
+			   -moz-transform: translateZ(-100px) rotateX(180deg);
+			-webkit-transform: translateZ(-100px) rotateX(180deg);
 		}
 		#box > ul > li:nth-of-type(4){
 			background-color: blue;
-			transform-origin: bottom;
-			transform: translateZ(-200px) rotateX(-90deg);
+					transform-origin: bottom;
+				-ms-transform-origin: bottom;
+			   -moz-transform-origin: bottom;
+			-webkit-transform-origin: bottom;
+					transform: translateZ(-100px) rotateX(270deg);
+				-ms-transform: translateZ(-100px) rotateX(270deg);
+			   -moz-transform: translateZ(-100px) rotateX(270deg);
+			-webkit-transform: translateZ(-100px) rotateX(270deg);
 		}
-		#box:hover > ul{
-			transform: rotateX(-90deg);
-		}
-		/*下方另一个盒子*/
-		#wrap{
-			width: 100px;
-			height: 100px;
-			border: 1px solid #000;
-			margin: 50px auto;
-			padding: 100px;
-		}
-		#wrap > ul{
-			width: 100px;
-			height: 100px;
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			position: relative;
-			transform-style: preserve-3d;
-			/*perspective: 1000px;*/
-			transition: all 1s;
-		}
-		#wrap > ul > li{
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			line-height: 100px;
-			text-align: center;
-			font-size: 50px;
-			color: #999;
-		}
-		#wrap > ul > li:nth-of-type(1){
-			background-color: tomato;
-			top: -100px;
-			left: 0;
-			transform-origin: bottom;
-			transform: translateZ(50px) rotateX(90deg);
-		}
-		#wrap > ul > li:nth-of-type(2){
-			background-color: skyblue;
-			top: 0;
-			left: -100px;
-			transform-origin: right;
-			transform: translateZ(50px) rotateY(-90deg);
-		}
-		#wrap > ul > li:nth-of-type(3){
-			background-color: orange;
-			top: 0;
-			left: 100px;
-			transform-origin: left;
-			transform: translateZ(50px) rotateY(90deg);
-		}
-		#wrap > ul > li:nth-of-type(4){
-			background-color: pink;
-			top: 100px;
-			left: 0;
-			transform-origin: top;
-			transform: translateZ(50px) rotateX(-90deg);
-		}
-		#wrap > ul > li:nth-of-type(5){
-			background-color: green;
-			top: 0;
-			left: 0;
-			transform: translateZ(-50px);
-		}
-		#wrap > ul > li:nth-of-type(6){
-			background-color: yellow;
-			top: 0;
-			left: 0;
-			transform: translateZ(50px);
-		}
-		#wrap:hover ul{
-			transform: rotateX(-90deg);
-		}		
+		/* #box:hover > ul{
+			transform: rotateX(-180deg);
+		} */
 	</style>
 	<script>
 		window.onload = function(){
-			var oBox = document.getElementById('box');
+			var oBox = document.getElementById('box'),
+				oPrev = document.getElementById('prev'),
+				oNext = document.getElementById('next');
 			var i,
 				sHtml = '',
-				n = oBox.offsetWidth / 25;
+				n = oBox.offsetWidth / 25,
+				iNow = 0;
 
+			//盒子布局
 			for(i = 0; i < n; i++){
-				sHtml += '<ul ' + 'style="transition: all 1s ease ' + i * 40 + 'ms;"' + '><li>1</li><li>2</li><li>3</li><li>4</li></ul>'
+				sHtml += '<ul style="transition: all 1s ' + i * 40 + 'ms;"><li style="background: url(img/x1.jpg) no-repeat ' + (i * -25) + 'px 0px"></li><li style="background: url(img/x2.jpg) no-repeat ' + (i * -25) + 'px 0px"></li><li style="background: url(img/x3.jpg) no-repeat ' + (i * -25) + 'px 0px"></li><li style="background: url(img/x4.jpg) no-repeat ' + (i * -25) + 'px 0px"></li></ul>';
 			}
 			oBox.innerHTML = sHtml;
-		};
 
-		function lg(str){
-			console.log(str);
-		}
+			// 按钮添加翻转事件
+			oPrev.onclick = function(){
+				iNow = iNow < 1 ? 3 : --iNow;
+				fnRotate();
+			};
+			oNext.onclick = function(){
+				iNow = iNow > 2 ? 0 : ++iNow;
+				fnRotate();
+			};
+
+			// 翻转函数
+			function fnRotate(){
+				var aUl = oBox.getElementsByTagName('ul');
+				for (var i = 0; i < aUl.length; i++){
+						  aUl[i].style.transform = 'rotateX(-' + (iNow*90) + 'deg)';
+						aUl[i].style.msTransform = 'rotateX(-' + (iNow*90) + 'deg)';
+					   aUl[i].style.MozTransform = 'rotateX(-' + (iNow*90) + 'deg)';
+					aUl[i].style.webkitTransform = 'rotateX(-' + (iNow*90) + 'deg)';
+				}
+			}
+		};
 	</script>
 </head>
 <body>
 	<div id="box"></div>
-	<div id="wrap">
-		<ul>
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-		</ul>
+	<div class="btns">
+		<a href="#" id="prev">上一张</a>
+		<a href="#" id="next">下一张</a>
 	</div>
 </body>
 </html>
