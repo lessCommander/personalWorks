@@ -76,8 +76,6 @@
 				iColNum = oUls[0].offsetWidth / oUls[0].children[0].offsetWidth,
 				aLi = [],
 				iNow = 0;
-			var iColor = ['red', 'blue', 'yellow', 'gold', 'pink'],
-				iNow2 = 0;
 
 			for (var i = 0; i < oUls.length; i++){
 				aLi.push(setXY(oUls[i].children, iRowNum, iColNum));
@@ -85,14 +83,14 @@
 
 			oPrev.onclick = function(){
 				fnBroken(aLi[iNow], 0, 0, 1, function(){
-					this.style.backgroundColor = 'orange';
+					// this.style.backgroundColor = 'orange';
 				});
 			};
 
 			oNext.onclick = function(){
-				iNow2++;
 				fnBroken(aLi[iNow], iRowNum-1, iColNum-1, -1, function(){
-					this.style.backgroundColor = iColor[iNow2];
+					// this.style.backgroundColor = 'red';
+					
 				});
 			};
 		};
