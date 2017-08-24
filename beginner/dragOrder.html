@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>拖拽修改顺序</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			font-family: '微软雅黑';
+			color: #666;
+		}
+		div{
+			text-align: center;
+			margin: 10px auto;
+		}
+		#list{
+			width: 300px;
+			height: 320px;
+			margin: 0 auto;
+			background-color: #eee;
+			list-style: none;
+			position: relative;
+		}
+		#list > li{
+			width: 298px;
+			height: 38px;
+			border: 1px solid #666;
+			font-size: 20px;
+			line-height: 38px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.btn{
+			display: inline-block;
+			width: 60px;
+			height: 36px;
+			border: 1px solid #000;
+			outline: none;
+			background-color: #eac;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		.btn:hover{
+			background-color: gold;
+		}
+		.btn:active{
+			background-color: orange;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			var oBtn = document.querySelectorAll('.btn')[0],
+				aLi = document.querySelectorAll('li');
+
+			fnReset();
+
+			oBtn.onclick = function(){
+				fnReset();
+			};
+
+			for (var i = 0; i < aLi.length; i++){
+				aLi[i].ondragstart = fnStart(i);
+				aLi[i].ondrop = fnDrop(i);
+				aLi[i].ondragover = function(ev){
+					ev.preventDefault();
+				};
+			}
+
+			function fnStart(a){
+				return function(ev){
+					ev.dataTransfer.setData('key', a);
+				};
+			}
+
+			function fnDrop(a){
+				return function(ev){
+					var n = ev.dataTransfer.getData('key'),
+						iTop = aLi[n].offsetTop;
+
+					aLi[n].style.top = aLi[a].offsetTop + 'px';
+					aLi[a].style.top = iTop + 'px';
+				};
+			}
+
+			function fnReset(){
+				for (var i = 0; i < aLi.length; i++){
+					aLi[i].style.top = i * 40 + 'px';
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<div>拖拽列表中的项，修改排列顺序。</div>
+	<div>
+		<ul id="list">
+			<li draggable = "true">1</li>
+			<li draggable = "true">2</li>
+			<li draggable = "true">3</li>
+			<li draggable = "true">4</li>
+			<li draggable = "true">5</li>
+			<li draggable = "true">6</li>
+			<li draggable = "true">7</li>
+			<li draggable = "true">8</li>
+		</ul>
+	</div>
+	<div>
+		<button class="btn">重置</button>
+	</div>
+</body>
+</html>
