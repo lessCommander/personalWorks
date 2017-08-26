@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>拖拽修改顺序</title>
+	<title>拖拽修改位置</title>
 	<style>
 		*{
 			margin: 0;
@@ -18,14 +18,15 @@
 			width: 300px;
 			height: 320px;
 			margin: 0 auto;
-			background-color: #eee;
 			list-style: none;
 			position: relative;
 		}
 		#list > li{
-			width: 298px;
-			height: 38px;
-			border: 1px solid #666;
+			width: 300px;
+			height: 40px;
+			background-color: pink;
+			border: 1px solid #999;
+			box-sizing: border-box;
 			font-size: 20px;
 			line-height: 38px;
 			position: absolute;
@@ -62,16 +63,26 @@
 
 			for (var i = 0; i < aLi.length; i++){
 				aLi[i].ondragstart = fnStart(i);
-				aLi[i].ondrop = fnDrop(i);
+				aLi[i].ondragenter = fnEnter;
 				aLi[i].ondragover = function(ev){
 					ev.preventDefault();
 				};
+				aLi[i].ondragleave = fnLeave;
+				aLi[i].ondrop = fnDrop(i);
 			}
 
 			function fnStart(a){
 				return function(ev){
 					ev.dataTransfer.setData('key', a);
 				};
+			}
+
+			function fnEnter(){
+				this.style.backgroundColor = 'gold';
+			}
+
+			function fnLeave(){
+				this.style.backgroundColor = 'pink';
 			}
 
 			function fnDrop(a){
@@ -81,6 +92,7 @@
 
 					aLi[n].style.top = aLi[a].offsetTop + 'px';
 					aLi[a].style.top = iTop + 'px';
+					aLi[a].style.backgroundColor = 'pink';
 				};
 			}
 
@@ -93,7 +105,7 @@
 	</script>
 </head>
 <body>
-	<div>拖拽列表中的项，修改排列顺序。</div>
+	<div>拖拽列表中的项，修改排列位置。</div>
 	<div>
 		<ul id="list">
 			<li draggable = "true">1</li>
