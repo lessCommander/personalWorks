@@ -3,7 +3,7 @@
 		<div class="des">
 			已找到的<span>{{allGoods[0][curIndex]}}</span>：
 		</div>
-		<div>
+		<div class="goods-wrap">
 			<goodsChild
 				v-for="(item, index) in curGoods"
 				:key="index"
@@ -14,6 +14,16 @@
 					<button class="g-btn" @click="useGood(item.name, item.price)">选用</button>
 				</p>
 			</goodsChild>
+		</div>
+		<div class="footer-nav">
+			<ol>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+			</ol>
 		</div>
 	</div>
 </template>
@@ -129,6 +139,26 @@
 							name: '撒哈拉星际迷航III HY定制',
 							price: 1399
 						}
+					],
+					[
+						{
+							name: 'Alienware AW3418HW',
+							price: 9999
+						},
+						{
+							name: 'AOC C3208VWQ5',
+							price: 1999
+						}
+					],
+					[
+						{
+							name: 'Tt冰核水冷套装',
+							price: 1299
+						},
+						{
+							name: '爱国者 冰魄T240 RGB水冷散热器',
+							price: 299
+						}
 					]
 				]
 			}
@@ -158,7 +188,8 @@
 		height: 600px;
 		border: 2px solid #eee;
 		border-radius: 4px;
-		margin-left: 10px;
+		margin-top: 10px;
+
 	}
 	.des{
 		height: 40px;
@@ -167,6 +198,11 @@
 		font-size: 16px;
 		color: #288bde;
 		background-color: #eee;
+	}
+	.goods-wrap{
+		width: 500px;
+		height: 510px;
+		overflow: hidden;
 	}
 	.g-btn{
 		display: inline-block;
@@ -186,6 +222,36 @@
 		border: 1px solid transparent;
 	}
 	.g-btn:hover{
+		color: #fff;
+		background-color: #288bde;
+	}
+	.footer-nav{
+		height: 40px;
+		line-height: 40;
+	}
+	.footer-nav ol{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		float: right;
+		width: 240px;
+		height: 30px;
+	}
+	.footer-nav ol li{
+		float: left;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		margin-left: 5px;
+		color: #999;
+		background-color: #eee;
+		text-align: center;
+		cursor: pointer;
+	}
+	.footer-nav ol li:hover{
+
+	}
+	.footer-nav ol li:first-child{
 		color: #fff;
 		background-color: #288bde;
 	}

@@ -2,8 +2,8 @@
 	<div class="goods-child">
 		<div class="g-img"></div>
 		<div class="g-content">
-			<a class="g-name">{{gname}}</a>
-			<span class="g-detail">更多参数&raquo;</span>
+			<div><a class="g-name">{{gname}}</a></div>
+			<a class="g-detail">更多参数&raquo;</a>
 			<p class="g-price">￥{{gprice}}</p>
 			<slot name="sbtn"></slot>
 		</div>
@@ -37,22 +37,20 @@
 		height: 100px;
 		float: right;
 		margin: 10px;
-		border: 1px solid #fff;
 		position: relative;
 		left: 0;
 		top: 0;
 	}
-	.g-name{
-		display: block;
+	.g-name, .g-detail{
 		cursor: pointer;
 	}
-	.g-name:link, .g-name:hover{
+	.g-name:hover, .g-detail:hover{
+		text-decoration: underline;
 		color: orange;
 	}
 	.g-detail{
 		font-size: 14px;
 		color: #288bde;
-		cursor: pointer;
 	}
 	.g-price{
 		display: inline-block;

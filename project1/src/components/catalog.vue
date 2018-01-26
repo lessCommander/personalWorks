@@ -1,14 +1,16 @@
 <template>
 	<div class="catalog">
 		<div class="cata-title">请选择配件：</div>
-		<ul>
-			<li 
-				v-for="item in catalogs"
-				:key="item.id"
-				:class="{active: item.selected}"
-				@click="fnSel(item.id)"
-			>{{item.name}}</li>
-		</ul>
+		<div class="cata-wrap1">
+			<ul>
+				<li 
+					v-for="item in catalogs"
+					:key="item.id"
+					:class="{active: item.selected}"
+					@click="fnSel(item.id)"
+				>{{item.name}}</li>
+			</ul>
+		</div>
 	</div>
 </template>
 
@@ -54,6 +56,16 @@
 						id: 7,
 						name: '机箱',
 						selected: false
+					},
+					{
+						id: 8,
+						name: '显示器',
+						selected: false
+					},
+					{
+						id: 9,
+						name: '散热器',
+						selected: false
 					}
 				]
 			}
@@ -81,17 +93,19 @@
 
 <style>
 	.catalog{
-		height: 70px;
+		width: 100%;
+		height: 100%;
+		float: left;
 	}
 	.catalog .cata-title{
 		color: #288bde;
 	}
-	.catalog ul{
-		margin-top: 0;
-		padding: 10px 0px;
+	.cata-wrap1{
+	}
+	.cata-wrap1 ul{
 		list-style: none;
 	}
-	.catalog ul li{
+	.cata-wrap1 ul li{
 		width: 100px;
 		height: 26px;
 		text-align: center;
@@ -99,11 +113,11 @@
 		border: 2px solid #eee;
 		background-color: #eee;
 		float: left;
-		margin-right: 10px;
+		margin: 10px 10px 0 0;
 		cursor: pointer;
 		border-radius: 4px;
 	}
-	.catalog li.active{
+	.cata-wrap1 li.active{
 		background-color: #fff;
 		border: 2px solid #288bde;
 	}

@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import catalog from './components/catalog.vue'
-import list from './components/list.vue'
-import goods from './components/goods.vue'
+import catalog from './components/catalog.vue'  //上方类型
+import list from './components/list.vue'        //左边列表
+import goods from './components/goods.vue'      //右边配件
 
 export default {
   name: 'App',
@@ -26,6 +26,10 @@ export default {
 </script>
 
 <style>
+div, ul, li{
+  margin: 0;
+  padding: 0;
+}
 #app {
   font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

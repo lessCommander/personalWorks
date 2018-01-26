@@ -15,7 +15,7 @@
 			</thead>
 			<tbody>
 				<tr
-					v-for="i in widgets"
+					v-for="(i, inx) in widgets"
 					:key="i.id"
 				 	:class="{tractive: i.selected}"
 				 	@click="fnSel(i.id)"
@@ -27,8 +27,9 @@
 					<td>
 						<span
 							class="del"
-							v-html="i.operate">
-						</span>
+							v-show="i.operate"
+							@click="delGood(inx)"
+						>&times;</span>
 					</td>
 				</tr>
 			</tbody>
@@ -48,7 +49,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: true
 					},
 					{
@@ -57,7 +58,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: false
 					},
 					{
@@ -66,7 +67,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: false
 					},
 					{
@@ -75,7 +76,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: false
 					},
 					{
@@ -84,7 +85,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: false
 					},
 					{
@@ -93,7 +94,7 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
 						selected: false
 					},
 					{
@@ -102,7 +103,25 @@
 						type: '',
 						num: '',
 						price: '',
-						operate: '',
+						operate: false,
+						selected: false
+					},
+					{
+						id: 8,
+						name: '显示器',
+						type: '',
+						num: '',
+						price: '',
+						operate: false,
+						selected: false
+					},
+					{
+						id: 9,
+						name: '散热器',
+						type: '',
+						num: '',
+						price: '',
+						operate: false,
 						selected: false
 					}
 				]
@@ -123,14 +142,20 @@
 				});
 				//接收选用的配件，如i5 8400，1350
 				Event1.$on('useGood', function(gname, gprice){
-					self.widgets[curId-1].type = gname;
-					self.widgets[curId-1].num = 1;
-					self.widgets[curId-1].price = gprice;
-					self.widgets[curId-1].operate = '&times;';
+					let widget = self.widgets[curId-1];
+					widget.type = gname;
+					widget.num = 1;
+					widget.price = gprice;
+					widget.operate = true;
 				});
 			},
 			fnSel(id){
 				Event1.$emit('selCatalog', id);	//子组件间发送数据，公共自定义事件
+			},
+			delGood(id){
+				let widget = this.widgets[id]
+				widget.type = widget.num = widget.price = '';
+				widget.operate = false;
 			}
 		}
 	}
@@ -140,8 +165,9 @@
 	.list{
 		float: left;
 		width: 300px;
-		height: 400px;
+		height: 600px;
 		border: 2px solid #288bde;
+		margin: 10px 10px 10px 0;
 		border-radius: 4px;
 	}
 	.list .list-caption{
@@ -198,14 +224,14 @@
 		border-bottom: 1px solid #ddd;
 	}
 	.tb .del{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
 		line-height: 20px;
 		cursor: pointer;
 		border-radius: 50%;
 	}
 	.tb .del:hover{
-		display: inline-block;
-		width: 20px;
-		height: 20px;
 		color: #fff;
 		background-color: #288bde;
 	}
