@@ -10,6 +10,7 @@
 				:gname="item.name"
 				:gprice="item.price"
 			>
+				<img slot="simg" src="../assets/mydiy_bg.png" alt="">
 				<p slot="sbtn">
 					<button class="g-btn" @click="useGood(item.name, item.price)">选用</button>
 				</p>
@@ -50,6 +51,10 @@
 					{
 						name: 'Intel酷睿i5 8400',
 						price: 1599
+					},
+					{
+						name: 'Intel酷睿i7 8700K',
+						price: 3399
 					}
 				],
 				allGoods: [
@@ -66,6 +71,10 @@
 						{
 							name: 'Intel酷睿i5 8400',
 							price: 1599
+						},
+						{
+							name: 'Intel酷睿i7 8700K',
+							price: 3399
 						}
 					],
 					[
@@ -74,7 +83,15 @@
 							price: 4999
 						},
 						{
-							name: '华硕(ASUS) X370',
+							name: '华硕玩家国度MAXIMUS X FORMULA',
+							price: 3799
+						},
+						{
+							name: '微星Z370-A PRO',
+							price: 999
+						},
+						{
+							name: '华硕(ASUS)STRIX X370-I GAMING',
 							price: 1799
 						}
 					],
@@ -108,6 +125,10 @@
 						{
 							name: '微星GTX 1060 GAMING X 6G',
 							price: 2399
+						},
+						{
+							name: 'NVIDIA GTX1050 TI 4GB',
+							price: 1199
 						}
 					],
 					[
@@ -118,6 +139,14 @@
 						{
 							name: '浦科特PX-128M8VC',
 							price: 399
+						},
+						{
+							name: '铭瑄MS240GBX5',
+							price: 469
+						},
+						{
+							name: '东芝TR200 240G',
+							price: 579
 						}
 					],
 					[
@@ -128,6 +157,14 @@
 						{
 							name: '游戏悍将GX600',
 							price: 499
+						},
+						{
+							name: '航嘉冷静王至尊版 500W',
+							price: 399
+						},
+						{
+							name: '全汉 炫魔MX550',
+							price: 539
 						}
 					],
 					[
@@ -138,16 +175,32 @@
 						{
 							name: '撒哈拉星际迷航III HY定制',
 							price: 1399
+						},
+						{
+							name: '金河田21+峥嵘Z1',
+							price: 329
+						},
+						{
+							name: '游戏悍将 黑金',
+							price: 599
 						}
 					],
 					[
 						{
-							name: 'Alienware AW3418HW',
-							price: 9999
+							name: '飞利浦241P8QPTKEB',
+							price: 1499
 						},
 						{
 							name: 'AOC C3208VWQ5',
 							price: 1999
+						},
+						{
+							name: '戴尔SP2318H',
+							price: 1199
+						},
+						{
+							name: 'HKC GF51',
+							price: 929
 						}
 					],
 					[
@@ -158,6 +211,14 @@
 						{
 							name: '爱国者 冰魄T240 RGB水冷散热器',
 							price: 299
+						},
+						{
+							name: '九州风神玄冰400雪豹PLUS版',
+							price: 129
+						},
+						{
+							name: '海盗船HD140 RGB',
+							price: 549
 						}
 					]
 				]

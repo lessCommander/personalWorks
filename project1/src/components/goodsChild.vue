@@ -1,6 +1,8 @@
 <template>
 	<div class="goods-child">
-		<div class="g-img"></div>
+		<div class="g-img">
+			<slot name="simg"></slot>
+		</div>
 		<div class="g-content">
 			<div><a class="g-name">{{gname}}</a></div>
 			<a class="g-detail">更多参数&raquo;</a>
@@ -29,7 +31,6 @@
 	.g-img{
 		width: 100px;
 		height: 100px;
-		border: 1px solid #000;
 		float: left;
 	}
 	.g-content{

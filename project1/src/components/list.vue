@@ -22,7 +22,7 @@
 				 >
 					<td>{{i.name}}</td>
 					<td :title="i.type">{{i.type}}</td>
-					<td>{{i.num}}</td>
+					<td @click="changeNum(inx)">{{i.num}}</td>
 					<td>{{i.price}}</td>
 					<td>
 						<span
@@ -34,6 +34,13 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="total">
+			<div class="total-wrap">
+				<span>价格总计：</span>
+				<span class="total-unit">￥</span>
+				<span class="total-price">{{calcTotal}}</span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -130,7 +137,20 @@
 		mounted(){
 			this.getSelCatalog(); //子组件间接收数据，公共自定义事件
 		},
-		methods:{
+		computed: {
+			calcTotal(){	//计算总价格
+				let arr = this.widgets,
+					sum = 0;
+				arr.forEach(function(o){
+					let num = Number(o.price);
+					if(num){
+						sum += num;
+					}
+				});
+				return sum;
+			}
+		},
+		methods: {
 			getSelCatalog(){
 				let self = this,
 					curId = 1;
@@ -152,10 +172,13 @@
 			fnSel(id){
 				Event1.$emit('selCatalog', id);	//子组件间发送数据，公共自定义事件
 			},
-			delGood(id){
+			delGood(id){	//删除配件
 				let widget = this.widgets[id]
 				widget.type = widget.num = widget.price = '';
 				widget.operate = false;
+			},
+			changeNum(inx){	//更改数量
+				console.log(inx);
 			}
 		}
 	}
@@ -169,6 +192,7 @@
 		border: 2px solid #288bde;
 		margin: 10px 10px 10px 0;
 		border-radius: 4px;
+		position: relative;
 	}
 	.list .list-caption{
 		height: 40px;
@@ -234,5 +258,24 @@
 	.tb .del:hover{
 		color: #fff;
 		background-color: #288bde;
+	}
+	.total{
+		width: 100%;
+		height: 50px;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		text-align: right;
+	}
+	.total .total-wrap{
+		margin-right: 20px;
+	}
+	.total .total-price, .total .total-unit{
+		font-weight: bold;
+		color: red;
+		font-size: 12px;
+	}
+	.total .total-wrap .total-price{
+		font-size: 24px;
 	}
 </style>
