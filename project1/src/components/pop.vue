@@ -29,10 +29,6 @@
 </script>
 
 <style>
-	.popWrap{
-		margin: 0;
-		padding: 0;
-	}
 	.popWrap > ul{
 		margin: 0;
 		list-style: none;

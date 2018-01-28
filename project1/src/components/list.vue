@@ -41,17 +41,22 @@
 				<span class="total-price">{{calcTotal}}</span>
 			</div>
 		</div>
-		<pop class="pop-layer" :class="{pophide: bHide}"></pop>
+		<pop class="pop-layer" :class="{pophide: !bVisible}"></pop>
 	</div>
 </template>
 
 <script>
 	import Event1 from '../router/bus.js'
 	import pop from './pop.vue'
+
+	document.onmouseup = function(){
+		Event1.$emit('docClick', false);
+	};
+
 	export default{
 		data(){
 			return {
-				bHide: true,	//选择数量窗口是否隐藏
+				bVisible: false,	//选择数量窗口是否显示
 				widgets: [
 					{
 						id: 1,
@@ -176,7 +181,11 @@
 				Event1.$on('selNum', function(n){
 					let widget = self.widgets[curId-1];
 					widget.num = n;
-					self.bHide = true;
+					self.bVisible = false;
+				});
+				//点击document
+				Event1.$on('docClick', function(bol){
+					(self.bVisible) && (self.bVisible=bol);
 				});
 			},
 			fnSel(id){
@@ -188,21 +197,18 @@
 				widget.operate = false;
 			},
 			changeNum(ev){	//更改数量
-				var iTimer;
-				if (ev.target.innerHTML != ''){
+				if(ev.target.innerHTML.trim() != ''){
 					var oPop = document.querySelector('.pop-layer'),
 						popWidth = oPop.offsetWidth,
-						x = ev.target.offsetLeft,
-						y = ev.target.offsetTop,
-						w = ev.target.offsetWidth,
-						h = ev.target.offsetHeight;
-
-					this.bHide = false;
+						oTd = ev.target,
+						x = oTd.offsetLeft,
+						y = oTd.offsetTop,
+						w = oTd.offsetWidth,
+						h = oTd.offsetHeight;
 					oPop.style.left = x + w/2 - popWidth/2 + 'px';
 					oPop.style.top = y + h + 2 + 'px';
 					popWidth = oPop.offsetWidth;
-				}else{
-					this.bHide = true;
+					this.bVisible = true;
 				}
 			}
 		},
@@ -252,6 +258,8 @@
 	.tb td{
 		height: 35px;
 		line-height: 35px;
+		border-bottom: 1px solid #ddd;
+		position: relative;
 	}
 	.tb td:nth-of-type(1){
 		width: 20%;
@@ -271,9 +279,6 @@
 	}
 	.tb td:nth-of-type(5){
 		width: 16%;
-	}
-	.tb td{
-		border-bottom: 1px solid #ddd;
 	}
 	.tb .del{
 		display: inline-block;
@@ -313,7 +318,6 @@
 		top: 100px;
 	}
 	.pophide{
-		/*display: none;*/
 		visibility: hidden;
 	}
 </style>
