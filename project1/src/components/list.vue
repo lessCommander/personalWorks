@@ -22,7 +22,7 @@
 				 >
 					<td>{{i.name}}</td>
 					<td :title="i.type">{{i.type}}</td>
-					<td @click="changeNum(inx)">{{i.num}}</td>
+					<td @click="changeNum">{{i.num}}</td>
 					<td>{{i.price}}</td>
 					<td>
 						<span
@@ -41,14 +41,17 @@
 				<span class="total-price">{{calcTotal}}</span>
 			</div>
 		</div>
+		<pop class="pop-layer" :class="{pophide: bHide}"></pop>
 	</div>
 </template>
 
 <script>
 	import Event1 from '../router/bus.js'
+	import pop from './pop.vue'
 	export default{
 		data(){
 			return {
+				bHide: true,	//选择数量窗口是否隐藏
 				widgets: [
 					{
 						id: 1,
@@ -142,9 +145,10 @@
 				let arr = this.widgets,
 					sum = 0;
 				arr.forEach(function(o){
-					let num = Number(o.price);
-					if(num){
-						sum += num;
+					let p = Number(o.price),
+						n = Number(o.num);
+					if(p){
+						sum += p * n;
 					}
 				});
 				return sum;
@@ -168,6 +172,12 @@
 					widget.price = gprice;
 					widget.operate = true;
 				});
+				//接收选择的数量
+				Event1.$on('selNum', function(n){
+					let widget = self.widgets[curId-1];
+					widget.num = n;
+					self.bHide = true;
+				});
 			},
 			fnSel(id){
 				Event1.$emit('selCatalog', id);	//子组件间发送数据，公共自定义事件
@@ -177,9 +187,27 @@
 				widget.type = widget.num = widget.price = '';
 				widget.operate = false;
 			},
-			changeNum(inx){	//更改数量
-				console.log(inx);
+			changeNum(ev){	//更改数量
+				var iTimer;
+				if (ev.target.innerHTML != ''){
+					var oPop = document.querySelector('.pop-layer'),
+						popWidth = oPop.offsetWidth,
+						x = ev.target.offsetLeft,
+						y = ev.target.offsetTop,
+						w = ev.target.offsetWidth,
+						h = ev.target.offsetHeight;
+
+					this.bHide = false;
+					oPop.style.left = x + w/2 - popWidth/2 + 'px';
+					oPop.style.top = y + h + 2 + 'px';
+					popWidth = oPop.offsetWidth;
+				}else{
+					this.bHide = true;
+				}
 			}
+		},
+		components: {
+			pop
 		}
 	}
 </script>
@@ -277,5 +305,15 @@
 	}
 	.total .total-wrap .total-price{
 		font-size: 24px;
+	}
+	.pop-layer{
+		z-index: 100;
+		position: absolute;
+		left: 100px;
+		top: 100px;
+	}
+	.pophide{
+		/*display: none;*/
+		visibility: hidden;
 	}
 </style>
