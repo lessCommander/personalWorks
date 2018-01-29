@@ -221,7 +221,7 @@
 <style>
 	.list{
 		float: left;
-		width: 300px;
+		width: 500px;
 		height: 600px;
 		border: 2px solid #288bde;
 		margin: 10px 10px 10px 0;
