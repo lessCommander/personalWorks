@@ -1,0 +1,62 @@
+import Home from './components/home.vue'
+import Book from './components/home/book/book.vue'
+import List1 from './components/home/book/book-list1.vue'
+import List2 from './components/home/book/book-list2.vue'
+import List3 from './components/home/book/book-list3.vue'
+import List4 from './components/home/book/book-list4.vue'
+
+
+import Item from './components/home/item/item.vue'
+import Broadcaster from './components/home/broadcaster/broadcaster.vue'
+
+
+var routes = [
+	{
+		path: '/home',
+		component: Home
+	},
+	{
+		path: '/book',
+		component: Book,
+		children: [
+			{
+				path: '/',
+				component: List1
+			},
+			{
+				path: 'list1',
+				component: List1
+			},
+			{
+				path: 'list2',
+				component: List2
+			},
+			{
+				path: 'list3',
+				component: List3
+			},
+			{
+				path: 'list4',
+				component: List4
+			},
+			{
+				path: '*',
+				redirect: 'list1'
+			}
+		]
+	},
+	{
+		path: '/item',
+		component: Item
+	},
+	{
+		path: '/broadcaster',
+		component: Broadcaster
+	},
+	{
+		path: '*',
+		redirect: '/home'
+	}
+];
+
+export default routes;
