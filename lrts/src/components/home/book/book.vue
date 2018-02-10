@@ -30,6 +30,7 @@
 <script>
 	import ptitle from '../publicTitle.vue'
 	import homefooter from '../../homefooter'
+    import {mapActions} from 'vuex'
 
 	export default{
 		components:{

@@ -29,15 +29,15 @@ var routes = [
 			},
 			{
 				path: 'list2',
-				component: List2
+				component: List1
 			},
 			{
 				path: 'list3',
-				component: List3
+				component: List1
 			},
 			{
 				path: 'list4',
-				component: List4
+				component: List1
 			},
 			{
 				path: '*',

@@ -5,7 +5,32 @@
 </template>
 
 <script>
-    
+    import {mapActions} from 'vuex'
+
+    export default{
+        watch:{
+            $route(oTo){
+                let sPath = oTo.path,
+                    o = {
+                        iIndex: "0",
+                        getPath: '../src/data/book.json'
+                    };
+                
+                if(sPath == '/book'){
+                    o.iIndex = 1;
+                }else if(sPath.indexOf('/book') > -1){
+                    o.iIndex = sPath.slice(sPath.length - 1);
+                    o.getPath = '../../../src/data/book.json'
+                }
+                if(o.iIndex){
+                    this.loadBookData(o);
+                }
+            }
+        },
+        methods:mapActions([
+            'loadBookData'
+        ])
+    }
 </script>
 
 <style>
