@@ -5,6 +5,7 @@ import axios from 'axios';
 Vue.use(Vuex);
 
 const state = {
+	bookCurInx: 1,
 	bookData: []
 };
 
@@ -18,6 +19,7 @@ const actions = {
 const mutations = {
 	loadBookData(state, o){
 		var arr = [];
+		state.bookCurInx = o.iIndex;
 		axios
 			.get(o.getPath)
 		    .then(function(res){
@@ -37,6 +39,9 @@ const mutations = {
 const getters = {
 	getData(state){
 		return state.bookData;
+	},
+	getBookCurInx(state){
+		return (state.bookCurInx - 1);
 	}
 };
 

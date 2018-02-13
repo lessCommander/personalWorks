@@ -12,7 +12,7 @@
             $route(oTo){
                 let sPath = oTo.path,
                     o = {
-                        iIndex: "0",
+                        iIndex: 0,
                         getPath: '../src/data/book.json'
                     };
                 
@@ -39,11 +39,11 @@
         padding: 0;
         overflow-x: hidden;
     }
-    a, a:active{
+    a, a:visited, a:link{
+        color: #666;
         text-decoration: none;
     }
     .home-footer{
-        /*position: absolute;*/
         position: relative;
         left: 0;
         top: 0;

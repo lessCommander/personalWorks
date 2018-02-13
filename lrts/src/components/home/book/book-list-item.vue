@@ -1,15 +1,15 @@
 <template>
 	<div class="book-list-item">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-3">
+		<div class="media">
+			<div class="media-left media-middle">
+				<a href="javascript:">
 					<slot name="book-list-item-img-slot"></slot>
-				</div>
-				<div class="col-xs-9">
-					<div>{{bookname}}</div>
-					<div>播音：{{bookauthor}}</div>
-					<div>集数：{{booknum}} 播放：{{bookbroadcast}}</div>
-				</div>
+				</a>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading">{{bookname}}</h4>
+				<div>播音：{{bookauthor}}</div>
+				<div>集数：{{booknum}} 播放：{{bookbroadcast}}</div>
 			</div>
 		</div>
 	</div>
@@ -31,13 +31,9 @@
 	.book-list-item{
 		padding: 10px 5px;
 		color: #666;
-		border-top: 1px solid #eee;
+		border-bottom: 1px solid #eee;
 	}
-	.list-item-img{
-		height: 61px;
-		width: 61px;
-		line-height: 61px;
-		text-align: center;
-		overflow: hidden;
+	.media h4{
+		color: #333;
 	}
 </style>

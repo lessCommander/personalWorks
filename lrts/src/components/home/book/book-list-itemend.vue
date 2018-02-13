@@ -13,7 +13,6 @@
 <style scoped>
 	.book-list-itemend{
 		padding: 10px 5px;
-		border-top: 1px solid #eee;
 		text-align: center;
 		color: #999;
 	}

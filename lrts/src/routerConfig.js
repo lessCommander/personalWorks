@@ -1,10 +1,6 @@
 import Home from './components/home.vue'
 import Book from './components/home/book/book.vue'
 import List1 from './components/home/book/book-list1.vue'
-import List2 from './components/home/book/book-list2.vue'
-import List3 from './components/home/book/book-list3.vue'
-import List4 from './components/home/book/book-list4.vue'
-
 
 import Item from './components/home/item/item.vue'
 import Broadcaster from './components/home/broadcaster/broadcaster.vue'
