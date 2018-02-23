@@ -14,6 +14,10 @@
                     o = {
                         iIndex: 0,
                         getPath: '../src/data/book.json'
+                    },
+                    o2 = {
+                        iIndex: 0,
+                        getPath: '../src/data/active.json'
                     };
                 
                 if(sPath == '/book'){
@@ -21,14 +25,23 @@
                 }else if(sPath.indexOf('/book') > -1){
                     o.iIndex = sPath.slice(sPath.length - 1);
                     o.getPath = '../../../src/data/book.json'
+                }else if(sPath == '/active'){
+                    o2.iIndex = 1;
+                }else if(sPath.indexOf('/active') > -1){
+                    o2.iIndex = sPath.slice(sPath.length - 1);
+                    o2.getPath = '../../../src/data/active.json'
                 }
                 if(o.iIndex){
                     this.loadBookData(o);
                 }
+                if(o2.iIndex){
+                    this.loadActiveData(o2);
+                }
             }
         },
         methods:mapActions([
-            'loadBookData'
+            'loadBookData',
+            'loadActiveData'
         ])
     }
 </script>

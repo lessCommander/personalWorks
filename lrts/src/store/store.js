@@ -6,13 +6,17 @@ Vue.use(Vuex);
 
 const state = {
 	bookCurInx: 1,
-	bookData: []
+	bookData: [],
+	activeCurInx: 1,
+	activeData: []
 };
 
 const actions = {
 	loadBookData({commit}, o){
 		commit('loadBookData', o);
-		
+	},
+	loadActiveData({commit}, o2){
+		commit('loadActiveData', o2)
 	}
 };
 
@@ -33,6 +37,19 @@ const mutations = {
 		    .catch(function(err){
 		        console.log(err);
 		    });
+	},
+	loadActiveData(state, o){
+		var arr = [];
+		state.activeCurInx = o.iIndex;
+		axios
+			.get(o.getPath)
+		    .then(function(res){
+		    	var i = Number(o.iIndex) - 1;
+		        state.activeData = res.data[i];
+		    })
+		    .catch(function(err){
+		        console.log(err);
+		    });
 	}
 };
 
@@ -42,6 +59,9 @@ const getters = {
 	},
 	getBookCurInx(state){
 		return (state.bookCurInx - 1);
+	},
+	getActiveData(state){
+		return state.activeData;
 	}
 };
 
