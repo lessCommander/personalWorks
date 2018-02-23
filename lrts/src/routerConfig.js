@@ -4,7 +4,7 @@ import List1 from './components/home/book/book-list1.vue'
 
 import Item from './components/home/item/item.vue'
 import Broadcaster from './components/home/broadcaster/broadcaster.vue'
-
+import Active from './components/active/active.vue'
 
 var routes = [
 	{
@@ -48,6 +48,10 @@ var routes = [
 	{
 		path: '/broadcaster',
 		component: Broadcaster
+	},
+	{
+		path: '/active',
+		component: Active
 	},
 	{
 		path: '*',

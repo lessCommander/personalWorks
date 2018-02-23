@@ -27,7 +27,7 @@
 					</router-link>
 				</div>
 				<div class="col-xs-3">
-					<router-link to="">
+					<router-link to="/active">
 						<div>
 							<img src="../../assets/img/home_active.png" alt="">
 						</div>
