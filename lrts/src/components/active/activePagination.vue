@@ -1,7 +1,7 @@
 <template>
 	<div class="a-content-pagination">
 		<ul class="pagination">
-			<li><a href="javascript:#">1</a></li>
+			<li class="active"><a href="javascript:#">1</a></li>
 			<li><a href="javascript:#">2</a></li>
 			<li><a href="javascript:#">3</a></li>
 			<li><a href="javascript:#">4</a></li>
@@ -22,5 +22,10 @@
 	}
 	.a-content-pagination .pagination a{
 		color: #fc6520;
+		border: 1px solid #fc6520;
+	}
+	.a-content-pagination .pagination .active a{
+		color: #fff;
+		background-color: #fc6520;
 	}
 </style>

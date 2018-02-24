@@ -19,9 +19,9 @@
 <script>
 	export default{
 		props:[
-			'a-item-title',
-			'a-item-time',
-			'a-item-content'
+			'aItemTitle',
+			'aItemTime',
+			'aItemContent'
 		]
 	}
 </script>

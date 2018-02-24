@@ -1,13 +1,21 @@
 <template>
     <div id="app">
         <router-view></router-view>
+        <myside
+            v-show="sideShow"
+            :style="{height: getSideHeight + 'px'}"
+        ></myside>
     </div>
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import myside from './components/aside.vue'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default{
+        components:{
+            myside
+        },
         watch:{
             $route(oTo){
                 let sPath = oTo.path,
@@ -26,7 +34,7 @@
                     o.iIndex = sPath.slice(sPath.length - 1);
                     o.getPath = '../../../src/data/book.json'
                 }else if(sPath == '/active'){
-                    o2.iIndex = 1;
+                    o2.iIndex = 2;
                 }else if(sPath.indexOf('/active') > -1){
                     o2.iIndex = sPath.slice(sPath.length - 1);
                     o2.getPath = '../../../src/data/active.json'
@@ -42,6 +50,10 @@
         methods:mapActions([
             'loadBookData',
             'loadActiveData'
+        ]),
+        computed:mapGetters([
+            'sideShow',
+            'getSideHeight'
         ])
     }
 </script>

@@ -5,7 +5,11 @@
 		</div>
 		<div class="a-nav">
 			<ul>
-				<li v-for="(val, index) in titleName" :key="index">
+				<li
+					v-for="(val, index) in titleName"
+					:key="index"
+					:class="{active: (getActiveCurInx == index)}"
+				>
 					<router-link :to="'/active/page' + (index + 1)">{{val}}</router-link>
 				</li>
 			</ul>
@@ -32,6 +36,8 @@
 </template>
 
 <script>
+	import {mapGetters} from 'vuex'
+
 	export default{
 		data(){
 			return {
@@ -42,7 +48,10 @@
 					'懒人官网'
 				]
 			}
-		}
+		},
+		computed: mapGetters([
+			'getActiveCurInx'
+		])
 	}
 </script>
 
@@ -77,10 +86,12 @@
 		display: inline-block;
 		flex: 1;
 	}
-	.a-nav ul > li .active{
+	.a-nav ul > li.active{
 		border-bottom: 2px solid #fc6520;
 	}
-
+	.a-nav ul > li > a{
+		display: block;
+	}
 	/*搜索*/
 	.a-search{
 		height: 56px;

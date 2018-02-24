@@ -36,7 +36,7 @@
 						<ul>
 							<li
 								v-for="(item, index) in oTitle"
-								:class="{active: index == getBookCurInx}"
+								:class="{active: (index == getBookCurInx)}"
 							>
 								<router-link :to="'/book/list' + (index + 1)">
 									{{item}}

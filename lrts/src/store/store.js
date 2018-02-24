@@ -8,7 +8,9 @@ const state = {
 	bookCurInx: 1,
 	bookData: [],
 	activeCurInx: 1,
-	activeData: []
+	activeData: [],
+	asideIsShow: false,
+	asideHeight: 736
 };
 
 const actions = {
@@ -17,6 +19,9 @@ const actions = {
 	},
 	loadActiveData({commit}, o2){
 		commit('loadActiveData', o2)
+	},
+	showAsideBar({commit}, isShow){
+		commit('showAsideBar', isShow);
 	}
 };
 
@@ -50,6 +55,10 @@ const mutations = {
 		    .catch(function(err){
 		        console.log(err);
 		    });
+	},
+	showAsideBar(state, isShow){
+		state.asideHeight = document.documentElement.offsetHeight;
+		state.asideIsShow = isShow;
 	}
 };
 
@@ -62,6 +71,15 @@ const getters = {
 	},
 	getActiveData(state){
 		return state.activeData;
+	},
+	getActiveCurInx(state){
+		return (state.activeCurInx - 1);
+	},
+	sideShow(state){
+		return state.asideIsShow;
+	},
+	getSideHeight(state){
+		return state.asideHeight;
 	}
 };
 

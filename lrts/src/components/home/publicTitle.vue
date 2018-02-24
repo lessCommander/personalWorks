@@ -1,15 +1,18 @@
 <template>
 	<div class="public-title">
 		<router-link to="/">
-			<a class="p-back" href="">
+			<a class="p-back" href="#">
 				<span class="p-lt"></span>
 			</a>
 		</router-link>
 		<div class="p-name">
 			{{pname}}
 		</div>
-		<a href="">
-			<button class="navbar-toggle p-btn" type="button">
+		<a href="#" @click.prevent="showAsideBar(true)">
+			<button
+				class="navbar-toggle p-btn"
+				type="button"
+			>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -19,10 +22,15 @@
 </template>
 
 <script>
+	import {mapActions} from 'vuex'
+
 	export default{
 		props:[
 			'pname'
-		]
+		],
+		methods:mapActions([
+			'showAsideBar'
+		])
 	}
 </script>
 
