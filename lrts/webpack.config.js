@@ -34,7 +34,16 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
+          limit: 50000,
           name: '[name].[ext]?[hash]'
+        }
+      },
+      {
+        test: /\.(woff|woff2|svg|eot|ttf)$/,
+        loader: 'url-loader',
+        options: {  
+          limit: 10000,
+          name: 'fonts/[name].[hash].[ext]'
         }
       }
     ]
@@ -53,7 +62,13 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+      new webpack.ProvidePlugin({
+         $: "jquery",
+         jQuery: "jquery"
+     })
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {

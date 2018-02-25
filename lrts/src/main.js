@@ -1,4 +1,7 @@
 import Vue from 'vue'
+import jQuery from 'jquery'
+import './assets/css/bootstrap.min.css'
+import './assets/js/bootstrap.min.js'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import routes from './routerConfig.js'
