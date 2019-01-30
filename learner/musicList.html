@@ -13,16 +13,21 @@
 		#title{
 			margin: 10px auto;
 			text-align: center;
+			cursor: default;
 		}
 		#songs{
 			width: 300px;
 			border: 1px solid #000;
 			margin: 0 auto;
+			border-top-left-radius: 6px;
+			border-top-right-radius: 6px;
+			overflow: hidden;
 		}
 		#songs > li{
 			list-style: none;
 			background-color: #eee;
 			height: 25px;
+			cursor: default;
 		}
 		#songs > li > span{
 			line-height: 25px;
@@ -33,7 +38,12 @@
 			background-color: #ddd;
 			margin: 0 auto;
 			border: 1px solid #000;
+			background-color: #f8a2b8;
 			border-top-width: 0px;
+			cursor: default;
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 6px;
+			overflow: hidden;
 		}
 		#box > span{
 			line-height: 30px;
@@ -43,16 +53,66 @@
 		}
 	</style>
 	<script src="../lib/jquery.js"></script>
+	
+</head>
+<body>
+	<div id='title'>带选择框的列表</div>
+	<ul id='songs'>
+		<li>
+			<input type="checkbox">
+			<span>素雪风华</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>告白气球</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>生死相随</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>逆流成河</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>海阔天空</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>勉为其难</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>一路之下</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>午夜圆舞曲</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>开心鸭</span>
+		</li>
+		<li>
+			<input type="checkbox">
+			<span>飞烟</span>
+		</li>
+	</ul>
+	<div id='box'>
+		<input id="all" type="checkbox">
+		<span>全选</span>
+	</div>
 	<script>
 		$(function(){
 			var $aLi = $('#songs').find('li'),
 				iLilen = $aLi.length;
 				$oBox = $('#box'),
 				$oAllCheck = $('#all'),
-				aColor = ['#eee','white'],
+				aColor = ['#eee','#fff'],
 				iColorLen = aColor.length,
-				sColor1 = 'pink',
-				sColor2 = 'orange',
+				sColor1 = '#c3a2f8',
+				sColor2 = '#f8a2b8',
 				sColor2x = '#ddd';
 
 			//单行事件
@@ -153,38 +213,5 @@
 			}
 		});
 	</script>
-</head>
-<body>
-	<div id='title'>带选择框的列表</div>
-	<ul id='songs'>
-		<li>
-			<input type="checkbox">
-			<span>素雪风华</span>
-		</li>
-		<li>
-			<input type="checkbox">
-			<span>告白气球</span>
-		</li>
-		<li>
-			<input type="checkbox">
-			<span>生死相随</span>
-		</li>
-		<li>
-			<input type="checkbox">
-			<span>逆流成河</span>
-		</li>
-		<li>
-			<input type="checkbox">
-			<span>海阔天空</span>
-		</li>
-		<li>
-			<input type="checkbox">
-			<span>勉为其难</span>
-		</li>
-	</ul>
-	<div id='box'>
-		<input id="all" type="checkbox">
-		<span>全选</span>
-	</div>
 </body>
 </html>
