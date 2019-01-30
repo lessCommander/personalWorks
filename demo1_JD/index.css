@@ -1,3 +1,64 @@
+@font-face {
+  font-family: "iconfont";
+  src: url(fonts/iconfont.ceb6aaa5.eot);
+  /* IE9 */
+  src: url(fonts/iconfont.ceb6aaa5.eot#iefix) format("embedded-opentype"), url("data:application/x-font-woff2;charset=utf-8;base64,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") format("woff2"), url(fonts/iconfont.65b13013.woff) format("woff"), url(fonts/iconfont.b9065f3d.ttf) format("truetype"), url(fonts/iconfont.cf44b951.svg#iconfont) format("svg");
+  /* iOS 4.1- */ }
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-daohanggouwuche:before {
+  content: "\e607"; }
+
+.icon-xiaoxi:before {
+  content: "\e62f"; }
+
+.icon-youjiantou1:before {
+  content: "\e699"; }
+
+.icon-lishijilu:before {
+  content: "\e685"; }
+
+.icon-compile:before {
+  content: "\e617"; }
+
+.icon-search:before {
+  content: "\e63a"; }
+
+.icon-gouwuche1:before {
+  content: "\e61a"; }
+
+.icon-shangjiantou:before {
+  content: "\e633"; }
+
+.icon-youjiantou:before {
+  content: "\e6e0"; }
+
+.icon-iconfontzhizuobiaozhun0251:before {
+  content: "\e6a7"; }
+
+.icon-zhaoxiangji:before {
+  content: "\e611"; }
+
+.icon-zuojiantou-01:before {
+  content: "\e61c"; }
+
+.icon-xiajiantou:before {
+  content: "\e612"; }
+
+.icon-guanzhu:before {
+  content: "\e600"; }
+
+.icon-huiyuan:before {
+  content: "\e60e"; }
+
+.icon-location:before {
+  content: "\e613"; }
 /*公共样式--开始*/
 html,
 body,
@@ -120,9 +181,7 @@ textarea {
     display: inline-block;
     *display: inline;
     *zoom: 1;
-}@charset "UTF-8";
-/* sass自定义 */
-.city-dropdown .city-current, .myjd-dropdown .myjd-current, .cg-dropdown .cg-current, .customer-dropdown .customer-current, .webnav-dropdown .webnav-current {
+}.city-dropdown .city-current, .myjd-dropdown .myjd-current, .cg-dropdown .cg-current, .customer-dropdown .customer-current, .webnav-dropdown .webnav-current {
   width: 60px;
   line-height: 29px;
   padding-left: 5px;
@@ -139,7 +198,6 @@ textarea {
   height: 100%;
   background-color: #eee; }
 
-/*顶部广告*/
 .top-banner {
   min-height: 80px;
   background-color: #be8b4c; }
@@ -155,7 +213,6 @@ textarea {
   height: 100%;
   background-image: url(images/85e6ffd0.top-banner.jpg); }
 
-/*顶部导航条*/
 .shortcut {
   background-color: #e3e4e5;
   min-width: 1190px;
@@ -219,11 +276,9 @@ textarea {
 .sc-login a {
   width: 100% !important; }
 
-/*城市列表*/
 .dropdown-menu {
   display: none; }
 
-/*顶端导航统一下拉菜单*/
 .shortcut-dropdown.hover {
   border: 1px solid #ddd !important;
   border-bottom: none; }
@@ -421,7 +476,6 @@ textarea {
   width: 260px;
   border-left: 1px solid #eee; }
 
-/*头部搜索栏*/
 .header {
   height: 140px; }
 
@@ -548,7 +602,6 @@ textarea {
   margin-left: 25px;
   margin-top: 30px; }
 
-/*主体内容*/
 .content-wrap {
   position: relative; }
 
@@ -558,7 +611,6 @@ textarea {
   position: relative;
   margin: 0 auto; }
 
-/*左侧导航*/
 .sidebar {
   background-color: #636363;
   border-top: 1px solid #eee;
@@ -585,10 +637,8 @@ textarea {
 .sidebar .col1-list .col1-item .split3 {
   color: #626262; }
 
-/*左侧导航弹出菜单*/
 .sidebar-pop-wrap {
   width: 798px;
-  /* height: 560px; */
   min-height: 478px;
   background-color: #fff;
   border: 1px solid #f7f7f7;
@@ -700,7 +750,6 @@ textarea {
   display: block;
   margin-top: 1px; }
 
-/*右侧主体列*/
 .con-col1 {
   height: 480px;
   background-color: #fff; }
@@ -722,7 +771,6 @@ textarea {
   height: 470px;
   margin-top: 10px; }
 
-/*中间轮播图*/
 .md-slider {
   overflow: hidden;
   position: relative; }
@@ -765,7 +813,7 @@ textarea {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 2px solid #fff;
   transition: background-color 200ms, border 200ms; }
 
 .slider-nav-wrap .nav-bar.img-hover {
@@ -801,7 +849,6 @@ textarea {
 .nav-next {
   right: 0; }
 
-/*第3列中等大小图片*/
 .col3-img-wrap .col3-img {
   transition: opacity .2s; }
 
@@ -811,7 +858,6 @@ textarea {
 .col3-img-wrap .col3-img + .col3-img {
   margin-top: 10px; }
 
-/*第4列登录列*/
 .con-col4 {
   background-color: #fff;
   box-sizing: border-box;
@@ -955,7 +1001,6 @@ textarea {
   width: 100%;
   margin-top: 15px; }
 
-/*下方4连轮播图*/
 .floor-wrap {
   margin-top: 30px;
   height: 275px; }
@@ -1162,7 +1207,6 @@ textarea {
 .floor-col3-barlist .floor-col3-bar.hover {
   background-color: #f10215; }
 
-/*查看更多按钮*/
 button.look-more {
   display: block;
   margin: 50px auto;
@@ -1182,7 +1226,6 @@ button.look-more:hover {
   color: #f10215;
   border-color: #f10215; }
 
-/*底部信息 */
 .bottom-info-wrap {
   margin: 50px 0;
   width: 100%; }
@@ -1286,7 +1329,6 @@ button.look-more:hover {
 .area-wrap .area-more a:hover, .area-wrap .area-more i:hover {
   color: #f10215; }
 
-/*关于我们*/
 .spacer {
   color: #626262;
   font-size: 10px;
@@ -1366,7 +1408,6 @@ button.look-more:hover {
 .about-row3 a:nth-child(5) {
   background-position: -205px 37px; }
 
-/*右侧工具栏*/
 .toolbar-wrap-fixed {
   height: 100%;
   width: 0;
@@ -1436,7 +1477,6 @@ button.look-more:hover {
   left: -60px;
   background-color: #c81623; }
 
-/*顶部工具栏*/
 .header-fixed {
   position: fixed;
   top: 0;
