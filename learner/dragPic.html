@@ -21,7 +21,7 @@
 		#container{
 			width: 340px;
 			height: 340px;
-			background-color: #ecf;
+			background-color: #FF9999;
 			margin: 20px auto;
 		}
 		#pics{
@@ -31,8 +31,8 @@
 		#pics li{
 			width: 100px;
 			height: 100px;
-			background-color: skyblue;
-			color: #eee;
+			background-color: #66CCCC;
+			color: #CCFF66;
 			margin-left: 10px;
 			margin-top: 10px;
 			box-sizing: border-box;
@@ -43,7 +43,7 @@
 			cursor: default;
 		}
 		#pics li.touch{
-			border: 3px solid yellow;
+			border: 3px solid #FFFF00;
 		}
 	</style>
 	<script src="../lib/jquery.js"></script>
@@ -79,6 +79,7 @@
 				e = ev || window.event;
 				iX = e.clientX - this.offsetLeft;
 				iY = e.clientY - this.offsetTop;
+
 				$(this).css('zIndex', ++zInx);
 				$doc.on('mousemove', myBind(this, fnMove));
 				$doc.on('mouseup', myBind(this, fnUp));
@@ -99,8 +100,7 @@
 			}
 
 			function fnUp(ev){
-				var oPos1, oPos2,
-					n = nearest(this);
+				var oPos1, oPos2;
 				if(n !== -1){
 					$aPic.eq(n).css('zIndex', ++zInx);
 					$(this).css('zIndex', ++zInx);
@@ -114,6 +114,7 @@
 				}else{
 					$(this).animate(aPos[$(this).index()]);
 				}
+				n = -1;
 				$doc.off('mousemove mouseup');
 			}
 

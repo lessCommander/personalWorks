@@ -70,13 +70,14 @@
 			font-size: 20px;
 			font-weight: bold;
 		}
-		#box > li:nth-child(5){
+		#box > .resume{
 			height: 200px;
+			line-height: 200px;
 			background-color: #53B4F9;
 		}
-		#box > li:nth-child(5) h3{
+		#box > .qq{
+			height: 200px;
 			padding-top: 70px;
-			/*line-height: 200px;*/
 		}
 		#box > li:hover{
 			opacity: 0.7;
@@ -106,11 +107,13 @@
 	<script>
 		$(function(){
 			var $oLi = $('#box>li'),
-				$oProduct = $oLi.find('ol');
+				$oProduct = $oLi.find('ol'),
+				allTop = ($oProduct.children().length - 1) * 30;
 
 			$oProduct.each(function(){
 				$(this).children().each(function(inx){
-					$(this).css({'top': 50 + inx * 30 + 'px', 'left': '200px'});
+					// $(this).css({'top': 50 + inx * 30 + 'px', 'left': '200px'});
+					$(this).css({'left': '200px', 'top': allTop});
 				});
 			});
 
@@ -128,11 +131,11 @@
 					if(b === true){
 						nowObj[i].timer = setTimeout((function(x){
 							return function(){
-								nowObj.eq(x).animate({'left': 0, 'opacity': 1});
+								nowObj.eq(x).animate({'left': 0, 'opacity': 1}).animate({'top': 50 + x * 30 + 'px'});
 							};
 						})(i), i * 50);
 					}else{
-						nowObj.eq(i).stop(true).css({'left': '200px', 'opacity': 0});
+						nowObj.eq(i).stop(true).css({'left': '200px', 'opacity': 0, 'top': allTop});
 					}
 				}
 			}
@@ -149,7 +152,6 @@
 					<li><a href="beginner/poker.html" target="_blank">翻牌</a></li>
 					<li><a href="beginner/pic3d.html" target="_blank">3D翻转图片</a></li>
 					<li><a href="beginner/broken.html" target="_blank">分割图片翻转</a></li>
-					<li><a href="beginner/dragAndTouch.html" target="_blank">拖拽与碰撞</a></li>
 					<li><a href="beginner/carousel1.html" target="_blank">轮播图</a></li>
 					<li><a href="beginner/zoom.html" target="_blank">放大镜</a></li>
 					<li><a href="beginner/table.html" target="_blank">表格添加/删除行</a></li>
@@ -170,16 +172,17 @@
 				<h2>其他框架实例</h2>
 				<ol>
 					<li><a href="learner/dragPic.html" target="_blank">jquery_拖拽切换位置</a></li>
+					<li><a href="beginner/dragAndTouch.html" target="_blank">拖拽与碰撞</a></li>
 					<!-- <li><a href="#" target="_blank">Vue_懒人听书-移动端</a></li> -->
 					<!-- <li><a href="#" target="_blank">占位符4</a></li>
 					<li><a href="#" target="_blank">占位符6</a></li>
 					<li><a href="#" target="_blank">占位符7</a></li> -->
 				</ol>
 			</li>
-			<li>
+			<li class="resume">
 				<a href="#" target="_blank" title="点击查看个人简历">个人简历</a>
 			</li>
-			<li>
+			<li class="qq">
 				<h3>Email: 2310975964@qq.com</h3>
 			</li>
 		</ul>
