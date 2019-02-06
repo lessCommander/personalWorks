@@ -60,20 +60,28 @@
 		#box > li:nth-child(3){
 			background-color: #CF00AC;
 		}
-		#box > li:nth-child(4){
+		#box > .resume-wrap{
 			height: 200px;
-			background-color: #ff851b;
+			line-height: 200px;
+			background-color: #53B4F9;
+			transition: none;
 		}
-		#box > li:nth-child(4) a{
+		#box > .resume-wrap:hover{
+			opacity: 1;
+		}
+		#box > .resume-wrap a{
 			display: block;
+			width: 100%;
+			height: 100%;
 			line-height: 200px;
 			font-size: 20px;
 			font-weight: bold;
 		}
-		#box > .resume{
-			height: 200px;
-			line-height: 200px;
-			background-color: #53B4F9;
+		#box > .resume-wrap a > .dk{
+			width: 100%;
+			height: 100%;
+			background-color: rgba(255,255,255,.2);
+			position: absolute;
 		}
 		#box > .qq{
 			height: 200px;
@@ -110,6 +118,7 @@
 				$oProduct = $oLi.find('ol'),
 				allTop = ($oProduct.children().length - 1) * 30;
 
+			/*作品列表*/
 			$oProduct.each(function(){
 				$(this).children().each(function(inx){
 					// $(this).css({'top': 50 + inx * 30 + 'px', 'left': '200px'});
@@ -125,6 +134,38 @@
 				move1($(this).find('li'), false);
 			});
 
+			/*个人简历*/
+			var $resume = $('#resume');
+			$resume.on('mouseenter', function(e){
+				e.stopPropagation();
+				var p = getDir(e.offsetX, e.offsetY, $(this).width());
+
+				if(p){
+					$('<div>')
+						.addClass('dk')
+						.css(p)
+						.on('mouseenter', function(e){
+							e.stopPropagation();
+						})
+						.on('mouseleave', function(e){
+							e.stopPropagation();
+							var p = getDir(e.offsetX, e.offsetY, $resume.width());
+
+							$(this).animate(p, 120, function(){
+								$(this).off().remove();
+							});
+						})
+						.appendTo($resume)
+						.animate({
+							left: 0,
+							top: 0
+						}, 120);
+				}
+			}).on('click', function(){
+				
+			});
+
+			// 个人作品列表移动
 			function move1(nowObj, b){
 				for(var i = 0; i < nowObj.length; i++){
 					clearTimeout(nowObj[i].timer);
@@ -138,6 +179,61 @@
 						nowObj.eq(i).stop(true).css({'left': '200px', 'opacity': 0, 'top': allTop});
 					}
 				}
+			}
+
+			// 获取遮罩层的位置，参数：源盒子的left,top,width
+			function getDir(iLeft, iTop, iWidth){
+				var half = iWidth / 2,
+					pos = { 		//遮罩层的位置字典
+						t: { 		//上
+							left: 0,
+							top: -iWidth + 'px'
+						},
+						r: { 		//右
+							left: iWidth + 'px',
+							top: 0
+						},
+						b: { 		//下
+							left: 0,
+							top: iWidth + 'px'
+						},
+						l: { 		//左
+							left: -iWidth + 'px',
+							top: 0
+						}
+					},
+					curDir = '';  //当前位置
+
+				if(iLeft < half){
+					if(iTop < half){
+						if(iLeft < iTop){ 	//左上
+							curDir = 'l';
+						}else{ 				//上左
+							curDir = 't';
+						}
+					}else{
+						if(iLeft < iWidth - iTop){ 	//左下
+							curDir = 'l';
+						}else{ 						//下左
+							curDir = 'b';
+						}
+					}
+				}else{
+					if(iTop < half){
+						if(iWidth - iLeft < iTop){ 	//右上
+							curDir = 'r';
+						}else{ 						//上右
+							curDir = 't';
+						}
+					}else{
+						if(iWidth - iLeft < iWidth - iTop){ //右下
+							curDir = 'r';
+						}else{ 								//下右
+							curDir = 'b';
+						}
+					}
+				}
+				return pos[curDir];
 			}
 		});
 	</script>
@@ -179,8 +275,10 @@
 					<li><a href="#" target="_blank">占位符7</a></li> -->
 				</ol>
 			</li>
-			<li class="resume">
-				<a href="#" target="_blank" title="点击查看个人简历">个人简历</a>
+			<li class="resume-wrap">
+				<a id="resume" href="#" target="_blank" title="点击查看个人简历">
+					<span>个人简历</span>
+				</a>
 			</li>
 			<li class="qq">
 				<h3>Email: 2310975964@qq.com</h3>
