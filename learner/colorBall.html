@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>绚丽小球</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#canvas{
+			background-color: #333;
+			position: absolute;
+			left: 50%;
+			top: 50px;
+			margin-left: -300px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="600", height="400">您的浏览器不支持canvas，请使用Chrome浏览器</canvas>
+	<script>
+		const canvas = document.querySelector('#canvas'),
+			  ctx = canvas.getContext('2d');
+
+		// 取随机数
+		const rand = (m, n) => Math.floor(Math.random()*(n-m+1)) + m;
+
+		// 定义父类
+		class Ball{
+			constructor(x, y, r, color){
+				Object.assign(this, {x, y, r, color});
+			}
+			// 渲染小球
+			render(){
+				ctx.save();
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+				ctx.fillStyle = this.color;
+				ctx.fill();
+				ctx.restore();
+				return this;
+			}
+		}
+
+		// 子类继承父类
+		class MoveBall extends Ball{
+			constructor(x, y, r, color){
+				super(x, y, r, color);
+				Object.assign(this, {
+					dx: rand(-5, 5),
+					dy: rand(-5, 5),
+					dr: rand(1, 4)
+				});
+			}
+			// 更新小球
+			update(){
+				this.x += this.dx;
+				this.y += this.dy;
+				this.r -= this.dr;
+				if(this.r < 0) {
+					this.r = 0;
+				}
+				return this;
+			}
+		}
+
+		// 主函数
+		let balls = [],
+			timer = null;
+
+		// 监听鼠标移动事件
+		canvas.addEventListener('mousemove', e => {
+			//取随机颜色、半径
+			let c = '#'+(parseInt((1<<24)* Math.random())).toString(16),
+				r = rand(25, 35);
+
+			//创建小球实例
+			balls.push(new MoveBall(e.offsetX, e.offsetY, r, c));
+
+			//判断绘画计时器是否已开始
+			if(!timer){
+				beginDraw();
+			}
+		}, false);
+
+		// 开始绘画
+		function beginDraw(){
+			timer = setInterval(()=>{
+				// 清除前一帧
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+				// 没有新创建的小球实例，则停止绘画
+				if(balls.length === 0){
+					clearInterval(timer);
+					return timer = null;
+				}
+
+				// 循环遍历每个小球的绘画
+				for(let i = 0, len = balls.length; i < len; i++){
+					if(balls[i].r <= 0){
+						// 小球半径为0，则从数组中移除小球，释放内存
+						balls[i] = null;
+						balls.splice(i, 1);
+						len--;
+					}else{
+						// 小球渲染|更新开始
+						balls[i].render().update();
+					}
+				}
+			}, 50);
+		}
+
+	</script>
+</body>
+</html>
