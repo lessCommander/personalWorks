@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>翻牌小游戏</title>
+	<script src="../lib/react.js"></script>
+	<script src="../lib/react-dom.js"></script>
+	<script src="../lib/prop-types.js"></script>
+	<script src="../lib/babel.min.js"></script>
+	<link rel="stylesheet" href="css/flopGame.css">
+</head>
+<body>
+	<div id="app"></div>
+
+	<script type="text/babel">
+	/*容器组件*/
+	class App extends React.Component{
+		constructor(props){
+			super(props);
+			this.state = {
+				level: 0,
+				levelList: [{
+					type: 'easy',
+					num: 4,
+					localization: '简单'
+				}, {
+					type: 'normal',
+					num: 8,
+					localization: '普通'
+				}, {
+					type: 'hard',
+					num: 16,
+					localization: '困难'
+				}],
+				cardArr: [],  //所有卡片
+				pairBox: [],  //用于当前配对的卡片的下标inx，例如：[3,2]
+				correctNum: 0, //正确匹配数量
+				loading: false, //是否加载中
+				defineLevel: 0 //预设难度
+			};
+			this.playRotate = this.playRotate.bind(this); // 翻牌
+			this.checkPair = this.checkPair.bind(this);		// 检查配对
+			this.ifWin = this.ifWin.bind(this);						// 检测胜利
+			this.resetGame = this.resetGame.bind(this);		// 重置游戏
+			this.changeLevel = this.changeLevel.bind(this); // 改变难度
+			this.pairTimer = null; // 配对不上时，翻回背面定时器，当重置游戏时，清空该计时器
+		}
+
+		getChildContext(){
+			const {level, levelList, defineLevel, loading, cardArr} = this.state,
+						{changeLevel, resetGame, playRotate} = this;
+			return {
+				level,
+				levelList,
+				defineLevel,
+				loading,
+				cardArr,
+				changeLevel,
+				resetGame,
+				playRotate
+			};
+		}
+
+		static childContextTypes = {
+			level: PropTypes.number.isRequired,
+			levelList: PropTypes.array.isRequired,
+			defineLevel: PropTypes.number.isRequired,
+			loading: PropTypes.bool.isRequired,
+			cardArr: PropTypes.array.isRequired,
+			changeLevel: PropTypes.func.isRequired,
+			resetGame: PropTypes.func.isRequired,
+			playRotate: PropTypes.func.isRequired
+		}
+
+		componentWillMount(){
+			const { level, levelList } = this.state;
+			this.init(level, levelList);
+		}
+
+		render(){
+			return (
+				<div className="container">
+					<Configure />
+					<Card />
+				</div>
+			);
+		}
+
+		/*自定义方法*/
+		//初始化
+		init(level, levelList){
+			const len = levelList[level].num,
+						halfLen = len / 2;
+						
+			let cardArr = [],
+					tmpArr = [];
+
+			// 获取给定长度的随机数组
+			for(let i = 1; i <= len; i++){
+				tmpArr.push(i);
+			}
+			tmpArr = this.shuffle(tmpArr);
+
+			// 从随机数组中，取前面一半数量的成对数据
+			for(let i = 0; i < halfLen; i++){
+				cardArr.push({
+					txt: tmpArr[i],
+					curFace: ''
+				},
+				{
+					txt: tmpArr[i],
+					curFace: ''
+				});
+			}
+
+			// 打乱成对数据顺序
+			cardArr = this.shuffle(cardArr);
+
+			this.setState({
+				level: this.state.defineLevel,
+				cardArr,
+				pairBox: [],
+				correctNum: 0,
+				loading: true
+			});
+			setTimeout(()=>{
+				this.setState({
+					loading: false
+				});
+			}, 1000);
+		}
+
+		//打乱数组
+		shuffle(arr){
+			return arr.sort((num1, num2) => Math.random() - 0.5);
+		}
+
+		//翻面函数
+		playRotate(ev, inx){
+			if(!ev.target.classList.contains('back')) return false; // 点击正面无效
+
+			// 加入匹配数组
+			const { cardArr, pairBox } = this.state;
+			let tmpArr = [...cardArr],
+				tmpBox = [...pairBox];
+
+			if(pairBox.length >= 2) return false;
+
+			// 翻面，加进预配对数组
+			tmpArr = tmpArr.map((oCard, index) => {
+				return index !== inx ? 
+					oCard :
+					{...oCard, curFace: 'in'};
+			});
+			tmpBox.push(inx);
+
+			switch(pairBox.length){
+				case 0:
+					this.setState({
+						cardArr: tmpArr,
+						pairBox: tmpBox
+					});
+					break;
+				case 1:
+					this.setState({
+						cardArr: tmpArr,
+						pairBox: tmpBox
+					}, () => this.checkPair(inx));
+					break;
+			}
+		}
+
+		//检查配对
+		checkPair(inx){
+			const { cardArr, pairBox, correctNum } = this.state;
+			let tmpArr = [...cardArr],
+					inx1 = pairBox[0],
+					inx2 = pairBox[1];
+
+			if(tmpArr[inx1].txt === tmpArr[inx2].txt){ //配对成功
+				this.setState({
+					correctNum: correctNum + 2, //成功数量+2
+					pairBox: []
+				}, () => this.ifWin());
+			}else{ // 配对失败，翻回背面
+				tmpArr[inx1].curFace = tmpArr[inx2].curFace = '';
+				this.pairTimer = setTimeout(() => {
+					this.setState({
+						cardArr: tmpArr,
+						pairBox: []
+					});
+				}, 1000);
+			}
+		}
+
+		//检测是否胜利
+		ifWin(){
+			let { correctNum, level, levelList } = this.state;
+			if(correctNum === levelList[level].num){
+				setTimeout(() => alert('You Win!'), 500);
+			}
+		}
+
+		//重置游戏
+		resetGame(){
+			let bConfirm = window.confirm('是否重新开始游戏？');
+			if (!bConfirm) return false;
+			clearTimeout(this.pairTimer);
+			const { defineLevel, levelList } = this.state;
+			this.init(defineLevel, levelList);
+		}
+
+		//改变难度
+		changeLevel(ev){
+			let defineLevel = Number.parseInt(ev.target.value);
+			this.setState({
+				defineLevel
+			});
+		}
+	}
+
+	/*表现层组件*/
+	//自定义配置组件
+	const Configure = (props, {levelList, defineLevel, changeLevel, resetGame, loading}) => {
+		return (
+			<div className="widget">
+				<select
+					className="widget-size"
+					value={defineLevel}
+					onChange={ev => changeLevel(ev)}
+				>
+					{
+						levelList.map((lv, inx) => {
+							return (
+								<option key={lv.type + inx} value={inx}>
+									{lv.localization}
+								</option>
+							);
+						})
+					}
+				</select>
+				<button className="widget-size" onClick={resetGame}>重新开始</button>
+				<div style={{display: loading ? 'block' : 'none'}}>Loading...</div>
+			</div>
+		);
+	};
+	Configure.contextTypes = {
+		levelList: PropTypes.array.isRequired,
+		defineLevel: PropTypes.number.isRequired,
+		loading: PropTypes.bool.isRequired,
+		changeLevel: PropTypes.func.isRequired,
+		resetGame: PropTypes.func.isRequired
+	};
+
+	//卡片组件
+	const Card = (props, {loading, level, levelList, cardArr, playRotate}) => {
+		return (
+			<div>
+				<ul style={{display: loading ? 'none' : 'flex'}} className={`${levelList[level].type} box`}>
+				{
+					cardArr.map((oCard, inx)=>{
+						return (
+							<li className={oCard.curFace}
+									key={inx}
+									onClick={(ev) => playRotate(ev, inx)}
+							>
+								<div className="face">{oCard.txt}</div>
+								<div className="back"></div>
+							</li>
+						);
+					})
+				}
+				</ul>
+			</div>
+		);
+	}
+	Card.contextTypes = {
+		level: PropTypes.number.isRequired,
+		levelList: PropTypes.array.isRequired,
+		loading: PropTypes.bool.isRequired,
+		cardArr: PropTypes.array.isRequired,
+		playRotate: PropTypes.func.isRequired
+	};
+
+	/*渲染*/
+	ReactDOM.render(<App />, document.getElementById('app'));
+	</script>
+</body>
+</html>

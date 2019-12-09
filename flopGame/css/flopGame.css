@@ -1,0 +1,79 @@
+/*公共*/
+ul{
+	margin: 0;
+	padding: 0;
+}
+ul,li{
+	list-style: none;
+}
+.easy{
+	width: 200px;
+	height: 200px;
+}
+.normal{
+	width: 400px;
+	height: 200px;
+}
+.hard{
+	width: 400px;
+	height: 400px;
+}
+
+/*卡片盒子*/
+ul.box{
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	transform-style: preserve-3d;
+	perspective: 666px;
+	perspective-origin: 50%;
+}
+ul.box > li{
+	height: 90px;
+	width: 90px;
+	line-height: 90px;
+	position: relative;
+	flex-shrink: 0;
+}
+ul.box > li > div{
+	width: 90px;
+	height: 90px;
+	line-height: 90px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-size: 28px;
+	user-select: none;
+	text-align: center;
+	backface-visibility:hidden;
+	transition: transform 300ms;
+}
+/*初始反面*/
+ul.box > li > .face{
+	background-color: lavender;
+	transform: rotateY(-180deg);
+}
+ul.box > li > .back{
+	background-color: #eee;
+	cursor: pointer;
+}
+/*翻到正面*/
+ul.box > li.in > .face{
+	transform: rotateY(-360deg);
+}
+ul.box > li.in > .back{
+	transform: rotateY(-180deg);
+}
+
+/*配置区域*/
+.widget{
+	display: block;
+	text-align: center;
+	margin: 10px auto;
+	user-select: none;
+}
+.widget-size{
+	width: 100px;
+	height: 30px;
+}
